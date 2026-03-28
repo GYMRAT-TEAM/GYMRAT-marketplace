@@ -1,18 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap');
 
-:root {
-  --red: #730c1e;
-  --dark-red: #480415;
-  --black: #0a0a0a;
-  --dark: #140f17;
-  --mid: #1a1a1a;
-  --light: #e0e0e0;
-  --muted: #7a6a70;
-  --white: #ffffff;
-  --burgundy: #480415;
-  --navy: #140f17;
-  --gray-medium: #2a2a2a;
-}
+ :root {
+            --red-primary: #730c1e;
+            --red-dark: #210207;
+            --red-burgundy: #480415;
+            --navy-dark: #140f17;
+            --black: #0a0a0a;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #2a2a2a;
+            --gray-light: #e0e0e0;
+            --white: #ffffff;
+ }
+            
+
+
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }

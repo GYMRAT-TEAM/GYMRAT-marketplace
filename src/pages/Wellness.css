@@ -1,0 +1,36 @@
+#wellness { background: var(--black); }
+
+.wellness-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem;
+}
+
+.wellness-card {
+  background: #1a1a1a; border-radius: 8px; padding: 2rem;
+  border: 1px solid rgba(115,12,30,0.15);
+  transition: border-color .3s, transform .3s;
+}
+.wellness-card:hover { border-color: rgba(115,12,30,0.4); transform: translateY(-4px); }
+
+.wellness-icon { font-size: 2rem; margin-bottom: 1rem; }
+.wellness-name {
+  font-family: 'Bebas Neue'; font-size: 1.4rem; letter-spacing: 1px;
+  margin-bottom: 0.8rem; color: #e0e0e0;
+}
+.wellness-desc { font-size: 13px; color: #7a6a70; line-height: 1.6; }
+
+.hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+.hub-card {
+  background: #140f17; border-radius: 8px; padding: 2rem;
+  border: 1px solid rgba(115,12,30,0.15);
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  transition: border-color .3s;
+}
+.hub-card:hover { border-color: rgba(115,12,30,0.4); }
+
+.hub-icon { font-size: 2rem; flex-shrink: 0; }
+.hub-name {
+  font-family: 'Barlow Condensed'; font-size: 15px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.5rem; color: #e0e0e0;
+}
+.hub-desc { font-size: 13px; color: #7a6a70; line-height: 1.6; }

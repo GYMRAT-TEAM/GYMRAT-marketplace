@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 import { useCart } from '../../context/CartContext';
+// 1. IMPORT THE LOGO HERE
+import logoImg from '../Assets/logo.png'; 
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -10,8 +12,8 @@ const navLinks = [
   { label: 'Wellness', href: '#wellness' },
   { label: 'Blog', href: '#blog' },
   { label: 'Community', href: '#community' },
-  { label: '📱 App', href: '#app' },
   { label: 'Contact', href: '#contact' },
+  { label: '📱 App', href: '#app' },
 ];
 
 export default function Navbar() {
@@ -33,12 +35,9 @@ export default function Navbar() {
 
   return (
     <nav>
+      {/* 2. REPLACED THE OLD LOGO DIVS WITH THE IMAGE */}
       <a href="#home" className="nav-logo">
-        <div className="nav-logo-icon">GR</div>
-        <div>
-          <div className="nav-logo-text">GYM RAT</div>
-          <div className="nav-logo-sub">Marketplace</div>
-        </div>
+        <img src={logoImg} alt="Gym Rat Marketplace" className="main-nav-logo" />
       </a>
 
       <ul className="nav-links">
