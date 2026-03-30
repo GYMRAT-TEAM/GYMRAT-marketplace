@@ -95,3 +95,24 @@ nav {
   display: block;
   filter: none; /* No shadow as requested */
 }
+.btn-signin {
+  background: transparent;
+  border: 1px solid rgba(115,12,30,0.6);
+  color: #e0e0e0;
+  padding: 8px 18px;
+  font-family: 'Barlow Condensed'; font-weight: 700;
+  font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; border-radius: 3px; transition: all .2s;
+}
+.btn-signin:hover {
+  background: #730c1e;
+  color: white;
+  border-color: #730c1e;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-left: auto;
+}

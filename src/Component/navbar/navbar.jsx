@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 import { useCart } from '../../context/CartContext';
-// 1. IMPORT THE LOGO HERE
-import logoImg from '../Assets/logo.png'; 
+import { useNavigate } from 'react-router-dom';
+import logoImg from '../Assets/logo.png';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -19,6 +19,7 @@ const navLinks = [
 export default function Navbar() {
   const { cartCount } = useCart();
   const [active, setActive] = useState('home');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,26 +36,23 @@ export default function Navbar() {
 
   return (
     <nav>
-      {/* 2. REPLACED THE OLD LOGO DIVS WITH THE IMAGE */}
       <a href="#home" className="nav-logo">
-        <img src={logoImg} alt="Gym Rat Marketplace" className="main-nav-logo" />
+        <img src={logoImg} alt="GymRat" className="main-nav-logo" />
       </a>
-
       <ul className="nav-links">
         {navLinks.map(link => (
           <li key={link.href}>
-            <a
-              href={link.href}
-              className={active === link.href.replace('#', '') ? 'active' : ''}
-            >
+            <a href={link.href} className={active === link.href.replace('#', '') ? 'active' : ''}>
               {link.label}
             </a>
           </li>
         ))}
       </ul>
-
       <div className="nav-actions">
         <input type="text" className="nav-search" placeholder="Search products..." />
+        <button className="btn-signin" onClick={() => navigate('/signin')}>
+          SIGN IN
+        </button>
         <button className="btn-cart">
           🛒 Cart <span className="cart-badge">{cartCount}</span>
         </button>
