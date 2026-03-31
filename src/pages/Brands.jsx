@@ -1,12 +1,12 @@
 import './Brands.css';
 
 export default function Brands() {
-  const brands = ['NIKE','ADIDAS','UNDER ARMOUR','OPTIMUM NUTRITION','MYPROTEIN','REEBOK','PUMA','C4 SPORT','GYMSHARK','BSN'];
+  const brands = ['NIKE','ADIDAS','PUMA','ALO','ZARA','FORMULA1','NEW BALANCE','Reebok','POLO','FILS'];
   const featured = [
-    { name: 'NIKE', count: '143 products' },
-    { name: 'ADIDAS', count: '98 products' },
-    { name: 'GYMSHARK', count: '67 products' },
-    { name: 'MYPROTEIN', count: '84 products' },
+    { name: 'NIKE', count: '0 products', img: 'https://i.pinimg.com/1200x/ed/45/2d/ed452d2d7335442e503eed35c36d0791.jpg' },
+    { name: 'NEW BALANCE', count: '0 products', img: 'https://i.pinimg.com/1200x/81/48/26/814826b270e650185d4b9e11aa580569.jpg' },
+    { name: 'PUMA', count: '0 products', img: 'https://i.pinimg.com/736x/67/f7/c9/67f7c990076073ad4ff91fd38c6fba91.jpg' },
+    { name: 'THE NORTH FACE', count: '0 products', img: 'https://i.pinimg.com/1200x/6c/14/ee/6c14ee37c302f82bd4f0f813989611ed.jpg' },
   ];
 
   return (
@@ -14,7 +14,7 @@ export default function Brands() {
       <div className="section-label">Premium Partners</div>
       <h2 className="section-title">TOP <em>BRANDS</em></h2>
       <p style={{ color: 'var(--muted)', fontSize: '14px', marginTop: '0.8rem' }}>
-        Discover premium names like Nike and other leading global brands known for quality
+       
       </p>
       <div style={{ overflow: 'hidden', marginTop: '3rem' }}>
         <div className="brands-marquee">
@@ -26,8 +26,12 @@ export default function Brands() {
       <div className="brands-featured">
         {featured.map(b => (
           <div className="brand-card" key={b.name}>
-            <div className="brand-card-logo">{b.name}</div>
-            <div className="brand-card-count">{b.count}</div>
+            <img src={b.img} alt={b.name} className="brand-card-img" />
+            <div className="brand-card-overlay" />
+            <div className="brand-card-info">
+              <div className="brand-card-logo">{b.name}</div>
+              <div className="brand-card-count">{b.count}</div>
+            </div>
           </div>
         ))}
       </div>

@@ -1,115 +1,167 @@
-export const goalData = {
-  protein: {
-    tag: 'SUPPLEMENTS',
-    title: 'PROTEIN POWDERS',
-    sub: 'Your personalized shopping checklist',
+const goalData = {
+  muscle: {
+    tag: 'Bulking',
+    title: 'BUILD MUSCLE',
+    sub: 'Everything you need to pack on serious size',
     sections: [
       {
-        label: '💪 MUST HAVE',
+        label: 'Must Have',
         items: [
-          { id: 'p1', name: 'Whey Protein 5lb', desc: 'Optimum Nutrition Gold Standard — best overall value', price: 74, priority: 'must' },
-          { id: 'p2', name: 'Casein Protein 4lb', desc: 'Slow-release for overnight muscle recovery', price: 65, priority: 'must' },
-        ]
+          { id: 'muscle-1', name: 'Whey Protein (5lb)', desc: 'Optimum Nutrition Gold Standard — fast-absorbing post-workout', price: 74, priority: 'must' },
+          { id: 'muscle-2', name: 'Creatine Monohydrate', desc: 'Pure micronized creatine for strength and power output', price: 28, priority: 'must' },
+          { id: 'muscle-3', name: 'Weight Gainer (6lb)', desc: 'High-calorie mass gainer for hard gainers', price: 55, priority: 'must' },
+        ],
       },
       {
-        label: '⚡ NICE TO HAVE',
+        label: 'Nice To Have',
         items: [
-          { id: 'p3', name: 'Plant Protein 2lb', desc: 'MyProtein vegan blend for dairy-free days', price: 42, priority: 'nice' },
-          { id: 'p4', name: 'Protein Bars (×12)', desc: 'Quest Bars — 20g protein, low sugar, great taste', price: 36, priority: 'nice' },
-        ]
+          { id: 'muscle-4', name: 'Pre-Workout', desc: 'Explosive energy and focus for heavy lifting sessions', price: 38, priority: 'nice' },
+          { id: 'muscle-5', name: 'ZMA (Zinc & Magnesium)', desc: 'Boosts testosterone and improves sleep quality', price: 22, priority: 'nice' },
+          { id: 'muscle-6', name: 'Lifting Belt', desc: 'Protect your lower back during heavy compound lifts', price: 45, priority: 'nice' },
+        ],
       },
       {
-        label: '🧪 OPTIONAL UPGRADES',
+        label: 'Optional',
         items: [
-          { id: 'p5', name: 'Collagen Peptides', desc: 'Joint support + skin health bonus', price: 28, priority: 'optional' },
-          { id: 'p6', name: 'Protein Shaker (×2)', desc: 'BlenderBottle Pro — leak proof, easy clean', price: 18, priority: 'optional' },
-        ]
-      }
-    ]
+          { id: 'muscle-7', name: 'Wrist Wraps', desc: 'Extra wrist support for pressing movements', price: 18, priority: 'opt' },
+          { id: 'muscle-8', name: 'Blender Bottle', desc: 'BPA-free shaker for on-the-go mixing', price: 14, priority: 'opt' },
+        ],
+      },
+    ],
   },
-  preworkout: {
-    tag: 'PERFORMANCE',
-    title: 'PRE-WORKOUT',
-    sub: 'Fuel your training sessions',
+
+  fat: {
+    tag: 'Cutting',
+    title: 'BURN FAT',
+    sub: 'Torch body fat while preserving lean muscle',
     sections: [
       {
-        label: '💪 MUST HAVE',
+        label: 'Must Have',
         items: [
-          { id: 'pw1', name: 'C4 Original Pre-Workout', desc: 'Best-seller, great energy + focus', price: 39, priority: 'must' },
-          { id: 'pw2', name: 'Creatine Monohydrate 500g', desc: 'MyProtein — proven strength & power gains', price: 22, priority: 'must' },
-        ]
+          { id: 'fat-1', name: 'Whey Isolate (4lb)', desc: 'Low-carb, low-fat protein to stay lean and full', price: 68, priority: 'must' },
+          { id: 'fat-2', name: 'Fat Burner Capsules', desc: 'Thermogenic formula to boost metabolism and energy', price: 35, priority: 'must' },
+          { id: 'fat-3', name: 'L-Carnitine', desc: 'Transports fatty acids into cells for energy production', price: 24, priority: 'must' },
+        ],
       },
       {
-        label: '⚡ NICE TO HAVE',
+        label: 'Nice To Have',
         items: [
-          { id: 'pw3', name: 'Beta-Alanine 500g', desc: 'Reduces fatigue, improves endurance', price: 19, priority: 'nice' },
-          { id: 'pw4', name: 'Caffeine Pills (×100)', desc: 'Clean energy without sugar crash', price: 12, priority: 'nice' },
-        ]
+          { id: 'fat-4', name: 'CLA Softgels', desc: 'Conjugated linoleic acid for body composition support', price: 22, priority: 'nice' },
+          { id: 'fat-5', name: 'Green Tea Extract', desc: 'Natural antioxidant that supports fat oxidation', price: 16, priority: 'nice' },
+          { id: 'fat-6', name: 'Resistance Bands Set', desc: 'Lightweight training anywhere — great for cardio circuits', price: 28, priority: 'nice' },
+        ],
       },
-      {
-        label: '🧪 OPTIONAL UPGRADES',
-        items: [
-          { id: 'pw5', name: 'BCAA Powder 400g', desc: 'Intra-workout amino acids for muscle preservation', price: 29, priority: 'optional' },
-        ]
-      }
-    ]
+    ],
   },
-  accessories: {
-    tag: 'GYM GEAR',
-    title: 'GYM ACCESSORIES',
-    sub: 'Essential gear for every session',
+
+  strength: {
+    tag: 'Performance',
+    title: 'STRENGTH & POWER',
+    sub: 'Build raw strength and dominate every lift',
     sections: [
       {
-        label: '💪 MUST HAVE',
+        label: 'Must Have',
         items: [
-          { id: 'ac1', name: 'Gym Gloves', desc: 'Grip & palm protection for heavy lifting', price: 18, priority: 'must' },
-          { id: 'ac2', name: 'Lifting Belt', desc: 'Core support for squats and deadlifts', price: 45, priority: 'must' },
-          { id: 'ac3', name: 'Resistance Bands Set', desc: 'Fit Simplify 5-pack — warm-up & activation', price: 18, priority: 'must' },
-        ]
+          { id: 'str-1', name: 'Creatine Monohydrate (500g)', desc: 'The most researched supplement for strength gains', price: 28, priority: 'must' },
+          { id: 'str-2', name: 'Pre-Workout (Stim)', desc: 'High-stimulant formula for maximum performance', price: 42, priority: 'must' },
+          { id: 'str-3', name: 'Powerlifting Belt', desc: 'Thick leather belt for squat, deadlift and bench support', price: 89, priority: 'must' },
+        ],
       },
       {
-        label: '⚡ NICE TO HAVE',
+        label: 'Nice To Have',
         items: [
-          { id: 'ac4', name: 'Foam Roller', desc: 'TriggerPoint GRID — deep muscle recovery', price: 35, priority: 'nice' },
-          { id: 'ac5', name: 'Jump Rope (speed)', desc: 'RPM Speed Cable — cardio warm-up essential', price: 22, priority: 'nice' },
-          { id: 'ac6', name: 'Gym Bag 30L', desc: 'Nike Hoops Elite — fits everything + shoes pocket', price: 55, priority: 'nice' },
-        ]
+          { id: 'str-4', name: 'Knee Sleeves', desc: 'Compression support and warmth for heavy squats', price: 38, priority: 'nice' },
+          { id: 'str-5', name: 'Chalk Block', desc: 'Improves grip on deadlifts and pull movements', price: 12, priority: 'nice' },
+          { id: 'str-6', name: 'Wrist Wraps (Heavy)', desc: 'Rigid support for max-effort pressing', price: 22, priority: 'nice' },
+        ],
       },
       {
-        label: '🧪 OPTIONAL UPGRADES',
+        label: 'Optional',
         items: [
-          { id: 'ac7', name: 'Wrist Wraps', desc: 'Heavy press support, pairs with gloves', price: 14, priority: 'optional' },
-        ]
-      }
-    ]
+          { id: 'str-7', name: 'Beta-Alanine', desc: 'Reduces muscle fatigue during high-intensity sets', price: 19, priority: 'opt' },
+        ],
+      },
+    ],
   },
-  apparel: {
-    tag: 'CLOTHING',
-    title: 'FITNESS APPAREL',
-    sub: 'Look the part, feel the part, perform the part',
+
+  endurance: {
+    tag: 'Cardio',
+    title: 'ENDURANCE TRAINING',
+    sub: 'Go longer, recover faster, perform better',
     sections: [
       {
-        label: '👕 MUST HAVE',
+        label: 'Must Have',
         items: [
-          { id: 'ap1', name: 'Training T-Shirts (×3)', desc: 'Moisture-wicking fabric — Nike Dri-FIT or Gymshark', price: 75, priority: 'must' },
-          { id: 'ap2', name: 'Training Shorts (×2)', desc: '5" inseam flex shorts with liner for gym days', price: 60, priority: 'must' },
-          { id: 'ap3', name: 'Training Shoes', desc: 'Nike Air Zoom SuperRep 3 — flat sole for lifting stability', price: 110, priority: 'must' },
-        ]
+          { id: 'end-1', name: 'Electrolyte Powder', desc: 'Replenish sodium, potassium and magnesium during long sessions', price: 26, priority: 'must' },
+          { id: 'end-2', name: 'BCAA Powder', desc: 'Prevent muscle breakdown during extended cardio', price: 32, priority: 'must' },
+          { id: 'end-3', name: 'Running Shoes', desc: 'Cushioned, responsive shoe built for distance running', price: 120, priority: 'must' },
+        ],
       },
       {
-        label: '⚡ NICE TO HAVE',
+        label: 'Nice To Have',
         items: [
-          { id: 'ap4', name: 'Compression Leggings', desc: 'Adidas Techfit — great for leg day and recovery', price: 45, priority: 'nice' },
-          { id: 'ap5', name: 'Training Hoodie', desc: 'Adidas Essentials — warm-up and post-session wear', price: 65, priority: 'nice' },
-        ]
+          { id: 'end-4', name: 'Caffeine Tablets', desc: 'Clean energy boost without the crash', price: 12, priority: 'nice' },
+          { id: 'end-5', name: 'Compression Socks', desc: 'Reduce leg fatigue and improve circulation', price: 18, priority: 'nice' },
+        ],
+      },
+    ],
+  },
+
+  flexibility: {
+    tag: 'Mobility',
+    title: 'FLEXIBILITY & MOBILITY',
+    sub: 'Move better, feel better, prevent injury',
+    sections: [
+      {
+        label: 'Must Have',
+        items: [
+          { id: 'flex-1', name: 'Yoga Mat (6mm)', desc: 'Non-slip thick mat for stretching and floor work', price: 34, priority: 'must' },
+          { id: 'flex-2', name: 'Foam Roller', desc: 'Deep tissue massage for tight muscles and fascia', price: 28, priority: 'must' },
+          { id: 'flex-3', name: 'Resistance Bands Set', desc: 'Assisted stretching and mobility drills', price: 22, priority: 'must' },
+        ],
       },
       {
-        label: '🧪 OPTIONAL UPGRADES',
+        label: 'Nice To Have',
         items: [
-          { id: 'ap6', name: 'Compression Socks (×3)', desc: 'Improves circulation for long training sessions', price: 22, priority: 'optional' },
-        ]
-      }
-    ]
-  }
-}
-export default goalData;;
+          { id: 'flex-4', name: 'Massage Gun', desc: 'Percussive therapy for deep muscle release', price: 89, priority: 'nice' },
+          { id: 'flex-5', name: 'Collagen Peptides', desc: 'Supports joint health and connective tissue', price: 32, priority: 'nice' },
+          { id: 'flex-6', name: 'Stretching Strap', desc: 'Assisted deep stretching for hamstrings and hips', price: 14, priority: 'nice' },
+        ],
+      },
+    ],
+  },
+
+  recovery: {
+    tag: 'Wellness',
+    title: 'RECOVERY & WELLNESS',
+    sub: 'Sleep deeper, recover faster, feel your best',
+    sections: [
+      {
+        label: 'Must Have',
+        items: [
+          { id: 'rec-1', name: 'Whey Protein (5lb)', desc: 'Post-workout protein to kickstart muscle repair', price: 74, priority: 'must' },
+          { id: 'rec-2', name: 'Magnesium Glycinate', desc: 'Improves sleep quality and reduces muscle cramps', price: 22, priority: 'must' },
+          { id: 'rec-3', name: 'Omega-3 Fish Oil', desc: 'Reduces inflammation and supports joint recovery', price: 26, priority: 'must' },
+        ],
+      },
+      {
+        label: 'Nice To Have',
+        items: [
+          { id: 'rec-4', name: 'Foam Roller', desc: 'Daily soft tissue work to flush out soreness', price: 28, priority: 'nice' },
+          { id: 'rec-5', name: 'Epsom Salt (2kg)', desc: 'Magnesium soak bath for full-body muscle relief', price: 14, priority: 'nice' },
+          { id: 'rec-6', name: 'Massage Gun', desc: 'Targeted percussion therapy for deep recovery', price: 89, priority: 'nice' },
+        ],
+      },
+      {
+        label: 'Optional',
+        items: [
+          { id: 'rec-7', name: 'Melatonin (5mg)', desc: 'Regulate sleep cycles for deeper recovery', price: 12, priority: 'opt' },
+          { id: 'rec-8', name: 'Vitamin D3 + K2', desc: 'Immune support and bone health year-round', price: 18, priority: 'opt' },
+          { id: 'rec-9', name: 'Sleep Mask', desc: 'Block light for uninterrupted deep sleep', price: 16, priority: 'opt' },
+        ],
+      },
+    ],
+  },
+};
+
+export default goalData;

@@ -2,13 +2,14 @@
 
 /* ─── Variables ─── */
 :root {
-  --red:       #c0192c;
-  --red-hover: #e8293a;
-  --dark-red:  #730c1e;
+  --red:       #730c1e;
+  --red-hover: #730c1e;
+  --dark-red:  #5A0000;
   --dark:      #0a0a0a;
-  --card-bg:   #111010;
-  --card-dark: #0d0b0b;
-  --border:    rgba(192, 25, 44, 0.18);
+  --card-bg:   #060810;
+  background: #060810;
+  --card-dark: #060810;
+  --border:    #060810;
   --muted:     #6b5a5e;
   --text:      #e8e0e0;
   --sub:       #8a7a7e;
@@ -16,7 +17,8 @@
 
 /* ─── Section ─── */
 #shop {
-  background: var(--dark);
+  background: #060810;
+  background: linear-gradient(135deg, #060810 0%, #060810 100%);
   padding: 72px 48px 80px;
 }
 
@@ -74,7 +76,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
-  background: rgba(255, 255, 255, 0.03);
+  background: #060810;
 }
 
 /* ─── Card ─── */
@@ -94,7 +96,6 @@
   background: var(--card-dark);
 }
 
-/* Left accent bar on hover */
 .goal-card::before {
   content: '';
   position: absolute;
@@ -109,7 +110,7 @@
 
 .goal-card:hover::before { transform: scaleY(1); }
 
-/* ─── Badge button ─── */
+/* ─── Badge Button ─── */
 .goal-todo-btn {
   position: absolute;
   top: 14px;
@@ -126,7 +127,7 @@
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
   backdrop-filter: blur(6px);
-  font-size: 15px;
+  color: #fff;
 }
 
 .goal-todo-btn:hover {
@@ -155,7 +156,7 @@
 /* ─── Image ─── */
 .goal-img-wrap {
   position: relative;
-  height: 210px;
+  height: 350px;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -346,6 +347,7 @@
   white-space: nowrap;
 }
 
+/* ─── Panel Body ─── */
 .todo-panel-body {
   flex: 1;
   overflow-y: auto;
@@ -375,6 +377,7 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
+/* ─── Items ─── */
 .todo-item {
   display: flex;
   align-items: flex-start;
@@ -421,7 +424,11 @@
   color: transparent;
 }
 
-.todo-item.checked .todo-checkbox { background: #10b981; border-color: #10b981; color: #fff; }
+.todo-item.checked .todo-checkbox {
+  background: #10b981;
+  border-color: #10b981;
+  color: #fff;
+}
 
 .todo-item-content { flex: 1; min-width: 0; }
 
@@ -438,7 +445,7 @@
 .todo-item-price {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 18px;
-  color: var(--red-hover);
+  color: var(--red);
   white-space: nowrap;
 }
 
@@ -453,15 +460,16 @@
   align-self: flex-start;
 }
 
-.todo-item-priority.must { background: rgba(192, 25, 44, 0.15); color: var(--red-hover); border: 1px solid rgba(192, 25, 44, 0.3); }
+.todo-item-priority.must { background: rgba(192, 25, 44, 0.15); color: #730c1e; border: 1px solid rgba(192, 25, 44, 0.3); }
 .todo-item-priority.nice { background: rgba(245, 158, 11, 0.1); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.2); }
 .todo-item-priority.opt  { background: rgba(99, 102, 241, 0.1); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.2); }
 
+/* ─── Panel Footer ─── */
 .todo-panel-footer {
   padding: 1.2rem 1.8rem 1.8rem;
   border-top: 1px solid rgba(115, 12, 30, 0.2);
   flex-shrink: 0;
-  background: #100b0c;
+  background: #130a0c;
 }
 
 .todo-total-row {

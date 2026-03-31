@@ -4,64 +4,16 @@ import { useCart } from '../context/CartContext';
 import './Shop.css';
 
 const goals = [
-  {
-    key: 'muscle',
-    cat: 'Bulking',
-    name: 'BUILD MUSCLE',
-    desc: 'Gain lean mass and strength.',
-    img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80',
-    alt: 'Build Muscle',
-    count: 8,
-  },
-  {
-    key: 'fat',
-    cat: 'Cutting',
-    name: 'BURN FAT',
-    desc: 'Shed fat while maintaining muscle.',
-    img: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80',
-    alt: 'Burn Fat',
-    count: 6,
-  },
-  {
-    key: 'strength',
-    cat: 'Performance',
-    name: 'STRENGTH & POWER',
-    desc: 'Maximize lifts and overall power.',
-    img: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80',
-    alt: 'Strength & Power',
-    count: 7,
-  },
-  {
-    key: 'endurance',
-    cat: 'Cardio',
-    name: 'ENDURANCE TRAINING',
-    desc: 'Boost stamina and cardio fitness.',
-    img: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&q=80',
-    alt: 'Endurance Training',
-    count: 5,
-  },
-  {
-    key: 'flexibility',
-    cat: 'Mobility',
-    name: 'FLEXIBILITY & MOBILITY',
-    desc: 'Stay agile and prevent injuries.',
-    img: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80',
-    alt: 'Flexibility & Mobility',
-    count: 6,
-  },
-  {
-    key: 'recovery',
-    cat: 'Wellness',
-    name: 'RECOVERY & WELLNESS',
-    desc: 'Prioritize rest, sleep, and nutrition.',
-    img: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80',
-    alt: 'Recovery & Wellness',
-    count: 9,
-  },
+  { key: 'muscle', cat: 'Bulking', name: 'BUILD MUSCLE', img: 'https://i.pinimg.com/736x/f9/9c/8a/f99c8ac24d6c3aa868478a8c27ca4d2f.jpg', alt: 'Build Muscle' },
+  { key: 'fat', cat: 'Cutting', name: 'BURN FAT', img: 'https://i.pinimg.com/1200x/4f/82/39/4f82392a86be8e6172ea3de91423f4ed.jpg', alt: 'Burn Fat' },
+  { key: 'strength', cat: 'Performance', name: 'STRENGTH & POWER', img: 'https://i.pinimg.com/736x/3b/5c/69/3b5c691ce31116868ca97a369367c9ce.jpg', alt: 'Strength & Power' },
+  { key: 'endurance', cat: 'Cardio', name: 'ENDURANCE TRAINING', img: 'https://i.pinimg.com/1200x/aa/40/ea/aa40ea281fdbc0816e6b53118c3c6d79.jpg', alt: 'Endurance Training' },
+  { key: 'flexibility', cat: 'Mobility', name: 'FLEXIBILITY & MOBILITY', img: 'https://i.pinimg.com/736x/27/ce/47/27ce4740cdf3c21c7437c18263298a97.jpg', alt: 'Flexibility & Mobility' },
+  { key: 'recovery', cat: 'Wellness', name: 'RECOVERY & WELLNESS', img: 'https://i.pinimg.com/736x/10/2f/47/102f47bdf764c12902d83247df614106.jpg', alt: 'Recovery & Wellness' },
 ];
 
 function TodoPanel({ goalKey, onClose }) {
-  const { checkedItems, toggleItem } = useCart();
+  const { checkedItems = {}, toggleItem } = useCart();
   if (!goalKey) return null;
 
   const data = goalData[goalKey];
@@ -136,15 +88,12 @@ function TodoPanel({ goalKey, onClose }) {
 
 export default function Shop() {
   const [activeGoal, setActiveGoal] = useState(null);
-  const { checkedItems } = useCart();
+  const { checkedItems = {} } = useCart();
 
   const getRemainingCount = (goalKey) => {
-    if (!goalData[goalKey]) {
-      const g = goals.find(g => g.key === goalKey);
-      return g ? g.count : 0;
-    }
+    if (!goalData[goalKey]) return 0;
     const allItems = goalData[goalKey].sections.flatMap(s => s.items);
-    return allItems.filter(i => !checkedItems[i.id]).length;
+    return allItems.filter(i => !checkedItems?.[i.id]).length;
   };
 
   return (
@@ -166,7 +115,10 @@ export default function Shop() {
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveGoal(g.key); }}
                 title="View shopping list"
               >
-                📋
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 8a6 6 0 00-12 0c0 4-2 6-2 6h16s-2-2-2-6z"/>
+                  <path d="M13.73 21a2 2 0 01-3.46 0"/>
+                </svg>
                 <span className="goal-todo-badge">{getRemainingCount(g.key)}</span>
               </button>
 
@@ -179,10 +131,7 @@ export default function Shop() {
                 <div className="goal-cat">{g.cat}</div>
                 <div className="goal-name">{g.name}</div>
                 <div className="goal-desc">{g.desc}</div>
-                <div
-                  className="goal-btn"
-                  onClick={() => setActiveGoal(g.key)}
-                >
+                <div className="goal-btn" onClick={() => setActiveGoal(g.key)}>
                   VIEW LIST
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M5 12h14M12 5l7 7-7 7" />
