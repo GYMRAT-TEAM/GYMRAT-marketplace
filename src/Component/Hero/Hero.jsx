@@ -18,7 +18,7 @@ export default function Hero() {
       
       <div className="hero-content">
         <div className="hero-badge"><span></span> NEW COLLECTION 2026</div>
-        <h1 className="hero-title">UNLEASH YOUR<br /><em>INNER BEAST</em></h1>
+        <h1 className="hero-title">GymRat World<br /><em>Built for beasts</em></h1>
         <p className="hero-sub">
           Premium supplements and fitness gear designed for champions. Transform your body,
           elevate your performance, dominate your goals.
@@ -30,9 +30,9 @@ export default function Hero() {
       </div>
 
       <div className="hero-stats">
-        <div className="stat"><div className="stat-num">500+</div><div className="stat-label">Products</div></div>
-        <div className="stat"><div className="stat-num">50K+</div><div className="stat-label">Members</div></div>
-        <div className="stat"><div className="stat-num">120+</div><div className="stat-label">Brands</div></div>
+        <div className="stat"><div className="stat-num">0+</div><div className="stat-label">Products</div></div>
+        <div className="stat"><div className="stat-num">0+</div><div className="stat-label">Members</div></div>
+        <div className="stat"><div className="stat-num">0+</div><div className="stat-label">Brands</div></div>
       </div>
 
       <div className="hero-scroll">

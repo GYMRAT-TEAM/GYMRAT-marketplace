@@ -1,0 +1,1085 @@
+/* ═══════════════════════════════════════════════
+   GYMRAT — Checkout.css
+   All styles scoped under .ck-* prefix
+   ═══════════════════════════════════════════════ */
+
+/* ── OVERLAY & MODAL ────────────────────────────── */
+.ck-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(115, 12, 30, 0.1);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ck-modal {
+  background:rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 960px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: ckSlideUp 0.28s ease;
+}
+
+@keyframes ckSlideUp {
+  from { transform: translateY(28px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* scrollbar */
+.ck-modal::-webkit-scrollbar { width: 4px; }
+.ck-modal::-webkit-scrollbar-track { background: transparent; }
+.ck-modal::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
+
+/* ── MODAL HEADER ───────────────────────────────── */
+.ck-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  position: sticky;
+  top: 0;
+  background: rgba(115, 12, 30, 0.1);
+  z-index: 10;
+  border-radius: 16px 16px 0 0;
+}
+
+.ck-modal-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ck-modal-logo-icon {
+  width: 32px;
+  height: 32px;
+  background: #730c1e;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.ck-modal-logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: #f0f0f0;
+}
+
+/* Step bar */
+.ck-steps {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ck-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  font-size: 13px;
+  color: #666;
+  border-bottom: 2px solid transparent;
+  transition: all 0.18s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-step.active {
+  color: #730c1e;
+  border-bottom-color: #730c1e;
+}
+
+.ck-step.done {
+  color: #730c1e ;
+}
+
+.ck-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.ck-step.done .ck-step-num {
+  background: #730c1e;
+  border-color: #730c1e;
+  color: #fff;
+}
+
+.ck-close-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.ck-close-btn:hover {
+  border-color: #730c1e;
+  color: #730c1e;
+}
+
+/* ── MODAL BODY ─────────────────────────────────── */
+.ck-modal-body {
+  padding: 28px;
+  flex: 1;
+}
+
+/* ── SHARED ─────────────────────────────────────── */
+.ck-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 8px 0;
+}
+
+.ck-form-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: #f0f0f0;
+  margin-bottom: 20px;
+}
+
+.ck-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.ck-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ck-field.ck-full {
+  grid-column: 1 / -1;
+}
+
+.ck-field label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-field-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #242424;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0 12px;
+  transition: border-color 0.15s;
+}
+
+.ck-field-wrap:focus-within {
+  border-color: #730c1e;
+}
+
+.ck-field-wrap span {
+  font-size: 14px;
+  flex-shrink: 0;
+  color: #555;
+}
+
+.ck-field-wrap input,
+.ck-field-wrap select {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: #f0f0f0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  padding: 11px 0;
+}
+
+.ck-field-wrap input::placeholder { color: #444; }
+
+.ck-field-wrap select option {
+  background: rgba(115, 12, 30, 0.1);
+}
+
+.ck-form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.ck-back-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #666;
+  border-radius: 8px;
+  padding: 11px 22px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ck-back-btn:hover {
+  border-color: #f0f0f0;
+  color: #f0f0f0;
+}
+
+.ck-next-btn {
+  flex: 1;
+  background: #730c1e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ck-next-btn:hover { background: #730c1e; }
+
+/* ── STEP 1 : SHOP ──────────────────────────────── */
+.ck-shop-layout {
+  display: flex;
+  gap: 24px;
+}
+
+.ck-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+
+.ck-product-card {
+  background: #242424;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.18s, transform 0.15s;
+  cursor: pointer;
+}
+
+.ck-product-card:hover { border-color: rgba(192, 57, 43, 0.12); }
+.ck-product-card.in-cart { border-color: whitesmoke; }
+
+.ck-product-img {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ck-cat-apparel    { background: linear-gradient(135deg, #1a0808, #2d1010); }
+.ck-cat-equipment  { background: linear-gradient(135deg, #2d1010, #2d1010); }
+.ck-cat-nutrition  { background: linear-gradient(135deg, #1a0808, #2d1010); }
+
+.ck-product-emoji { font-size: 48px; }
+
+.ck-product-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #730c1e;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-product-body { padding: 12px 14px; }
+
+.ck-product-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #f0f0f0;
+  margin-bottom: 4px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-product-desc {
+  font-size: 11px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-product-pricing { display: flex; align-items: baseline; gap: 6px; margin-bottom: 10px; }
+
+.ck-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: #730c1e;
+  letter-spacing: 1px;
+}
+
+.ck-price-old {
+  font-size: 11px;
+  color: #444;
+  text-decoration: line-through;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ck-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ck-qty-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  background: #242424;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f0f0f0;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.12s;
+}
+
+.ck-qty-btn:hover { border-color: #730c1e; color: #730c1e; }
+
+.ck-qty-val {
+  font-weight: 600;
+  font-size: 14px;
+  min-width: 18px;
+  text-align: center;
+  color: #f0f0f0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-add-btn {
+  background: #730c1e;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 6px 14px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ck-add-btn:hover { background: #5a0918; }
+
+.ck-remove-btn {
+  background: none;
+  border: 1px solid rgba(231, 76, 60, 0.4);
+  color: #730c1e;
+  border-radius: 7px;
+  padding: 5px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-remove-btn:hover { background: rgba(192, 57, 43, 0.12); }
+
+.ck-added-tag {
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #730c1e;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Cart Sidebar */
+.ck-cart-sidebar {
+  width: 272px;
+  flex-shrink: 0;
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-self: start;
+  position: sticky;
+  top: 80px;
+}
+
+.ck-sidebar-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+}
+
+.ck-cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 60px;
+}
+
+.ck-empty {
+  font-size: 12px;
+  color: #555;
+  text-align: center;
+  padding: 16px 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-cart-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #242424;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 9px 10px;
+}
+
+.ck-cart-emoji { font-size: 20px; width: 28px; text-align: center; }
+
+.ck-cart-info { flex: 1; }
+
+.ck-cart-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #f0f0f0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-cart-sub {
+  font-size: 11px;
+  color: #555;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-cart-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.ck-cart-total {
+  font-size: 12px;
+  font-weight: 600;
+  color: #730c1e;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-cart-remove {
+  background: none;
+  border: none;
+  color: #444;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.12s;
+}
+
+.ck-cart-remove:hover { color: #730c1e; }
+
+.ck-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #666;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-summary-row span:last-child { color: #f0f0f0; }
+
+.ck-total-row {
+  font-size: 14px !important;
+  font-weight: 700;
+}
+
+.ck-total-row span:last-child { color: #730c1e !important; }
+
+.ck-promo-row { display: flex; gap: 8px; }
+
+.ck-promo-input {
+  flex: 1;
+  background: #242424;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 7px;
+  padding: 8px 10px;
+  color: #f0f0f0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  outline: none;
+}
+
+.ck-promo-input::placeholder { color: #444; }
+.ck-promo-input:focus { border-color: #730c1e; }
+
+.ck-promo-btn {
+  background: #242424;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 7px;
+  color: #666;
+  font-size: 12px;
+  padding: 0 12px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.12s;
+}
+
+.ck-promo-btn:hover { border-color: #730c1e; color: #730c1e; }
+
+.ck-proceed-btn {
+  width: 100%;
+  background: #730c1e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 13px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ck-proceed-btn:hover:not(:disabled) { background: #5a0918; }
+
+.ck-proceed-btn:disabled {
+  background: #2a2a2a;
+  color: #444;
+  cursor: not-allowed;
+}
+
+/* ── STEP 2 : SHIPPING ──────────────────────────── */
+.ck-shipping-layout {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+}
+
+.ck-shipping-visual {
+  width: 200px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.ck-box-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.ck-ship-visual-text { text-align: center; }
+
+.ck-ship-visual-text h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #f0f0f0;
+  margin-bottom: 6px;
+}
+
+.ck-ship-visual-text p {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-shipping-form { flex: 1; }
+
+.ck-ship-method-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #555;
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 10px;
+}
+
+.ck-ship-options { display: flex; flex-direction: column; gap: 8px; }
+
+.ck-ship-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.ck-ship-option:hover,
+.ck-ship-option.selected { border-color: #730c1e; }
+
+.ck-ship-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s;
+}
+
+.ck-ship-option.selected .ck-ship-radio {
+  border-color: #730c1e;
+}
+
+.ck-ship-option.selected .ck-ship-radio::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #730c1e   ;
+}
+
+.ck-ship-info { flex: 1; }
+
+.ck-ship-name {
+  font-weight: 500;
+  font-size: 13px;
+  color: #f0f0f0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-ship-eta {
+  font-size: 11px;
+  color: #555;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-ship-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  color: #730c1e;
+  letter-spacing: 1px;
+}
+
+/* ── STEP 3 : PAYMENT ───────────────────────────── */
+.ck-payment-layout {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+}
+
+.ck-card-visual {
+  width: 256px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Credit card */
+.ck-credit-card {
+  width: 240px;
+  height: 148px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #730c1e 0%, #5a0918 55%, #4a0712 100%);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.ck-credit-card::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 130px; height: 130px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.ck-credit-card::after {
+  content: '';
+  position: absolute;
+  bottom: -36px; left: 16px;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ck-chip {
+  width: 30px;
+  height: 22px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #F0C040, #D4A820);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  padding: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.ck-chip div { background: rgba(0, 0, 0, 0.22); border-radius: 2px; }
+
+.ck-card-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.88);
+  position: relative;
+  z-index: 1;
+}
+
+.ck-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.ck-card-label {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 2px;
+}
+
+.ck-card-value {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5px;
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+}
+
+/* Payment summary */
+.ck-pay-summary {
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 14px 16px;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ck-pay-summary-title {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #555;
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 4px;
+}
+
+.ck-pay-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  color: #666;
+}
+
+.ck-pay-row span:last-child { color: #f0f0f0; }
+
+.ck-pay-total {
+  font-weight: 700;
+  font-size: 14px !important;
+}
+
+.ck-pay-total span:last-child { color: #730c1e !important; }
+
+/* Payment form */
+.ck-payment-form { flex: 1; }
+
+.ck-pay-methods {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.ck-pay-method {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 12px 8px;
+  cursor: pointer;
+  font-size: 11px;
+  color: #555;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-pay-method:hover,
+.ck-pay-method.selected {
+  border-color: #730c1e;
+  color: #f0f0f0;
+}
+
+.ck-pay-method.selected { background: rgba(115, 12, 30, 0.1); }
+
+.ck-pay-method-icon { font-size: 22px; }
+
+.ck-card-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+
+.ck-alt-pay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px;
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+
+.ck-alt-pay-icon { font-size: 48px; }
+
+.ck-alt-pay p {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-amount-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 16px;
+}
+
+.ck-amount-label {
+  font-size: 12px;
+  color: #555;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-amount-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: #730c1e;
+  letter-spacing: 2px;
+}
+
+.ck-pay-btn {
+  flex: 1;
+  background: #730c1e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ck-pay-btn:hover { background: #5a0918 ; }
+
+/* ── STEP 4 : SUCCESS ───────────────────────────── */
+.ck-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 32px;
+  gap: 16px;
+}
+
+.ck-success-icon {
+  font-size: 72px;
+  animation: ckPop 0.4s ease;
+}
+
+@keyframes ckPop {
+  0%   { transform: scale(0); }
+  60%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+.ck-success-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  letter-spacing: 3px;
+  color: #730c1e;
+}
+
+.ck-success-sub {
+  font-size: 15px;
+  color: #666;
+  max-width: 380px;
+  line-height: 1.7;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-success-id {
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 13px;
+  color: #666;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-success-id strong { color: #730c1e; }
+
+.ck-success-note {
+  font-size: 12px;
+  color: #444;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.ck-continue-btn {
+  background: none;
+  border: 2px solid #730c1e;
+  color: #730c1e;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 8px;
+}
+
+.ck-continue-btn:hover {
+  background:#730c1e;
+  color: #fff;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .ck-modal { max-height: 95vh; border-radius: 12px; }
+  .ck-modal-body { padding: 16px; }
+  .ck-shop-layout { flex-direction: column; }
+  .ck-cart-sidebar { width: 100%; position: static; }
+  .ck-products { grid-template-columns: repeat(2, 1fr); }
+  .ck-shipping-layout { flex-direction: column; }
+  .ck-shipping-visual { width: 100%; flex-direction: row; }
+  .ck-payment-layout { flex-direction: column; }
+  .ck-card-visual { width: 100%; }
+  .ck-pay-summary { width: 100%; }
+  .ck-steps { gap: 4px; }
+  .ck-step { padding: 6px 10px; font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+  .ck-products { grid-template-columns: 1fr; }
+  .ck-form-grid { grid-template-columns: 1fr; }
+  .ck-card-fields { grid-template-columns: 1fr; }
+  .ck-modal-logo-text { display: none; }
+}
+/* ── CHECKOUT MODAL LOGO ── */
+.ck-modal-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;          /* space between image and text */
+  text-decoration: none;
+  margin-bottom: 24px; /* spacing below the logo */
+}
+
+.ck-modal-logo-img {
+  height: 42px;
+  width: auto;
+  display: block;
+}
+
+.ck-modal-logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: #e0e0e0;
+  line-height: 1;
+}
+
+.ck-modal-logo-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  letter-spacing: 10px;
+  color: #730c1e;          /* red accent */
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1;
+}

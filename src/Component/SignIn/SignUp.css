@@ -101,14 +101,7 @@
   background: rgba(115,12,30,0.06);
 }
 
-.plan-popular-badge {
-  position: absolute;
-  top: -14px; left: 50%; transform: translateX(-50%);
-  background: #10b981;
-  color: white; font-size: 11px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-  padding: 4px 16px; border-radius: 99px;
-}
+
 
 .plan-name {
   font-family: 'Barlow Condensed'; font-size: 15px;

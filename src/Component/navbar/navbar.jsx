@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { useCart } from '../../context/CartContext';
-import { useNavigate } from 'react-router-dom';
 import logoImg from '../Assets/logo.png';
 
 const navLinks = [
@@ -13,10 +13,10 @@ const navLinks = [
   { label: 'Blog', href: '#blog' },
   { label: 'Community', href: '#community' },
   { label: 'Contact', href: '#contact' },
-  { label: '📱 App', href: '#app' },
+  { label: 'App', href: '#app' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onCartClick }) {
   const { cartCount } = useCart();
   const [active, setActive] = useState('home');
   const navigate = useNavigate();
@@ -37,24 +37,34 @@ export default function Navbar() {
   return (
     <nav>
       <a href="#home" className="nav-logo">
-        <img src={logoImg} alt="GymRat" className="main-nav-logo" />
+        <img src={logoImg} alt="Gym Rat Marketplace" className="main-nav-logo" />
       </a>
+
       <ul className="nav-links">
         {navLinks.map(link => (
           <li key={link.href}>
-            <a href={link.href} className={active === link.href.replace('#', '') ? 'active' : ''}>
+            <a
+              href={link.href}
+              className={active === link.href.replace('#', '') ? 'active' : ''}
+            >
               {link.label}
             </a>
           </li>
         ))}
       </ul>
+
       <div className="nav-actions">
         <input type="text" className="nav-search" placeholder="Search products..." />
-        <button className="btn-signin" onClick={() => navigate('/signin')}>
-          SIGN IN
+
+        {/* Sign In button goes to /signin */}
+        <button className="btn-signin-nav" onClick={() => navigate('/signin')}>
+          Sign In
         </button>
-        <button className="btn-cart">
-          🛒 Cart <span className="cart-badge">{cartCount}</span>
+
+        {/* Cart */}
+        <button className="btn-cart" onClick={onCartClick}>
+          🛒 Cart
+          {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
         </button>
       </div>
     </nav>

@@ -31,10 +31,10 @@
   background: rgba(115,12,30,0.15); border: 1px solid rgba(115,12,30,0.5);
   padding: 6px 14px; border-radius: 2px; margin-bottom: 1.5rem;
   font-family: 'Barlow Condensed'; font-size: 12px; font-weight: 600;
-  letter-spacing: 3px; text-transform: uppercase; color: var(--red);
+  letter-spacing: 3px; text-transform: uppercase; color: #730c1e;
 }
 .hero-badge span {
-  width: 6px; height: 6px; background: var(--red); border-radius: 50%;
+  width: 6px; height: 6px; background: #730c1e; border-radius: 50%;
   animation: pulse 1.5s infinite; display: inline-block;
 }
 
@@ -44,7 +44,7 @@
   font-family: 'Bebas Neue'; font-size: clamp(4rem, 10vw, 9rem);
   line-height: 0.9; letter-spacing: 2px; margin-bottom: 1.5rem; color: #e0e0e0;
 }
-.hero-title em { color: var(--red); font-style: normal; }
+.hero-title em { color: #730c1e; font-style: normal; }
 
 .hero-sub {
   font-size: 16px; font-weight: 300; color: rgba(224,224,224,0.65);
@@ -59,7 +59,7 @@
   display: flex; gap: 3rem;
 }
 .stat { text-align: right; }
-.stat-num { font-family: 'Bebas Neue'; font-size: 2.8rem; color: var(--red); line-height: 1; }
+.stat-num { font-family: 'Bebas Neue'; font-size: 2.8rem; color: #730c1e; line-height: 1; }
 .stat-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #7a6a70; }
 
 .hero-scroll {
@@ -72,7 +72,7 @@
   0%,100% { transform: translateX(-50%) translateY(0); }
   50% { transform: translateX(-50%) translateY(8px); }
 }
-.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--red), transparent); }
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, #730c1e, transparent); }
 .hero-nav {
   position: absolute;
   top: 0;

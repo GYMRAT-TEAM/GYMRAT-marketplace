@@ -4,19 +4,22 @@ import logoImg from '../Assets/logo.png';
 export default function SignIn() {
   return (
     <div className="signin-page">
+      {/* Background Glows */}
       <div className="signin-glow signin-glow-1"></div>
       <div className="signin-glow signin-glow-2"></div>
 
       <div className="signin-container">
-
-        <a href="/" className="signin-logo">
-          <img src={logoImg} alt="Gym Rat" className="signin-logo-img" />
-          <div>
-            <div className="signin-logo-text">GYMRAT</div>
-            <div className="signin-logo-sub">MARKETPLACE</div>
+        
+        {/* 1. Logo at the top and center */}
+        <a href="/" className="signup-logo">
+          <img src={logoImg} alt="Gym Rat" className="signup-logo-img" />
+          <div className="logo-text-wrapper">
+            <div className="signup-logo-text">GYMRAT</div>
+            <div className="signup-logo-sub">MARKETPLACE</div>
           </div>
         </a>
 
+        {/* 2. The Main Card */}
         <div className="signin-card">
           <div className="signin-card-header">
             <div className="signin-badge">WELCOME BACK</div>
@@ -29,10 +32,10 @@ export default function SignIn() {
               <label>Email Address</label>
               <input type="email" placeholder="you@GYMRAT.com" />
             </div>
+            
             <div className="signin-field">
               <label>Password</label>
               <input type="password" placeholder="••••••••" />
-              <a href="#" className="signin-forgot">Forgot password?</a>
             </div>
 
             <div className="signin-options">
@@ -42,9 +45,9 @@ export default function SignIn() {
               </label>
             </div>
 
-            <button className="signin-btn">SIGN IN</button>
-
-            <div className="signin-divider"><span>OR CONTINUE WITH</span></div>
+            <div className="signin-divider">
+              <span>OR CONTINUE WITH</span>
+            </div>
 
             <div className="signin-socials">
               <button className="signin-social-btn">
@@ -58,30 +61,12 @@ export default function SignIn() {
               </button>
             </div>
           </div>
-
-          <div className="signin-footer">
-            Don't have an account?
-            <a href="/signup" style={{color: '#730c1e', textDecoration: 'none', fontWeight: '600', marginLeft: '4px'}}>
-              Create one free →
-            </a>
-          </div>
         </div>
 
-        <div className="signin-stats">
-          <div className="signin-stat">
-            <div className="signin-stat-num">50K+</div>
-            <div className="signin-stat-label">Members</div>
-          </div>
-          <div className="signin-stat-divider"></div>
-          <div className="signin-stat">
-            <div className="signin-stat-num">500+</div>
-            <div className="signin-stat-label">Products</div>
-          </div>
-          <div className="signin-stat-divider"></div>
-          <div className="signin-stat">
-            <div className="signin-stat-num">4.9★</div>
-            <div className="signin-stat-label">Rating</div>
-          </div>
+        {/* 3. Footer below the card */}
+        <div className="signin-footer">
+          Don't have an account?
+          <a href="/signup">Create one free →</a>
         </div>
 
       </div>
