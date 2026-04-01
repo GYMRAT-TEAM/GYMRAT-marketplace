@@ -45,7 +45,11 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const handleSelectPlan = (plan) => {
-    navigate('/create-account', { state: { plan } });
+    if (plan.name === 'Business Plan' || plan.name === 'VIP Plan') {
+      navigate('/payment', { state: { plan } });
+    } else {
+      navigate('/create-account', { state: { plan } });
+    }
   };
 
   return (

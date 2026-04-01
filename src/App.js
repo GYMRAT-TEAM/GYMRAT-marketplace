@@ -13,6 +13,7 @@ import AppSection from './AppSection/AppSection';
 import Footer from './Component/Footer/Footer';
 import CreateAccount from './Component/SignIn/CreateAccount';
 import CheckoutModal from './Component/Checkout/CheckoutModal';
+import PaymentPlan from './Component/PaymentPlan/PaymentPlan';
 
 // Pages
 import Shop from './pages/Shop';
@@ -63,6 +64,7 @@ function App() {
           {/* Sign In & Sign Up */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/payment" element={<PaymentPlan />} />
           <Route path="/create-account" element={<CreateAccount />} />
         </Routes>
       </CartProvider>
