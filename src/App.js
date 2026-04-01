@@ -25,6 +25,8 @@ import Community from './pages/Community';
 import Analytics from './pages/Analytics';
 import Contact from './pages/Contact';
 
+// then inside your JSX:
+
 function MainLayout() {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -39,10 +41,10 @@ function MainLayout() {
       <Categories />
       <Products />
       <Brands />
-      <Wellness />
       <Blog />
       <Community />
       <Analytics />
+      <Wellness />
       <AppSection />
       <Contact />
       <Footer />

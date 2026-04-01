@@ -34,7 +34,7 @@
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.38em;
   text-transform: uppercase;
   color: var(--red-hover);
   margin-bottom: 6px;
@@ -75,7 +75,7 @@
 .goals-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  gap: 24px;
   background: #060810;
 }
 
@@ -87,12 +87,19 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(115, 12, 30, 0.35);
   transition: border-color 0.3s, background 0.3s;
+}
+.goal-card {
+  border-radius: 16px;
+}
+
+.goal-img-wrap {
+  border-radius: 16px 16px 0 0;
 }
 
 .goal-card:hover {
-  border-color: var(--red);
+  border-color: rgba(115, 12, 30, 0.5);
   background: var(--card-dark);
 }
 
@@ -131,7 +138,7 @@
 }
 
 .goal-todo-btn:hover {
-  background: var(--red);
+  background: rgba(192, 25, 44, 0.9);
   transform: scale(1.12);
 }
 

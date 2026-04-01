@@ -15,8 +15,8 @@ const PRODUCTS = [
 
 const SHIP_OPTIONS = [
   { label: 'Standard Shipping', eta: '5–7  days', price: 0,  display: 'FREE' },
-  { label: 'Express Shipping',  eta: '2–3  days', price: 12, display: '$12' },
-  { label: 'Overnight Delivery',eta: 'Next day', price: 28, display: '$28' },
+  { label: 'Express Shipping',  eta: '2–3  days', price: 12, display: 'DZA 12' },
+  { label: 'Overnight Delivery',eta: 'Next day', price: 28, display: 'DZA 28' },
 ];
 
 // ── STEP INDICATOR ─────────────────────────────────────────────
@@ -62,8 +62,8 @@ function StepShop({ onNext }) {
             <div className="ck-product-body">
               <div className="ck-product-name">{p.name}</div>
               <div className="ck-product-pricing">
-                <span className="ck-price">${p.price}</span>
-                {p.oldPrice && <span className="ck-price-old">${p.oldPrice}</span>}
+                <span className="ck-price">DZA {p.price}</span>
+                {p.oldPrice && <span className="ck-price-old">DZA {p.oldPrice}</span>}
               </div>
               <div className="ck-product-footer">
                 <div className="ck-qty">
@@ -92,10 +92,10 @@ function StepShop({ onNext }) {
               <div key={item.id} className="ck-cart-item">
                 <div className="ck-cart-info">
                   <div className="ck-cart-name">{item.name}</div>
-                  <div className="ck-cart-sub">${item.price} × {item.qty}</div>
+                  <div className="ck-cart-sub">DZA {item.price} × {item.qty}</div>
                 </div>
                 <div className="ck-cart-item-right">
-                  <span className="ck-cart-total">${(item.price * item.qty).toFixed(2)}</span>
+                  <span className="ck-cart-total">DZA {(item.price * item.qty).toFixed(2)}</span>
                   <button className="ck-cart-remove" onClick={() => removeFromCart(item.id)}>✕</button>
                 </div>
               </div>
@@ -103,10 +103,10 @@ function StepShop({ onNext }) {
           )}
         </div>
         <div className="ck-divider" />
-        <div className="ck-summary-row"><span>Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
-        <div className="ck-summary-row"><span>Tax (8%)</span><span>${tax.toFixed(2)}</span></div>
+        <div className="ck-summary-row"><span>Subtotal</span><span>DZA {subtotal.toFixed(2)}</span></div>
+        <div className="ck-summary-row"><span>Tax (0%)</span><span>DZA {tax.toFixed(2)}</span></div>
         <div className="ck-divider" />
-        <div className="ck-summary-row ck-total-row"><span>Total</span><span>${total.toFixed(2)}</span></div>
+        <div className="ck-summary-row ck-total-row"><span>Total</span><span>DZA {total.toFixed(2)}</span></div>
         <button className="ck-proceed-btn" disabled={cartCount === 0} onClick={onNext}>PROCEED TO SHIPPING →</button>
       </aside>
     </div>
@@ -182,10 +182,10 @@ function StepPayment({ onNext, onBack }) {
           </div>
         </div>
         <div className="ck-pay-summary">
-          <div className="ck-pay-row"><span>Subtotal</span><span>${subtotal.toFixed(2)}</span></div>
-          <div className="ck-pay-row"><span>Shipping</span><span>${shippingCost.toFixed(2)}</span></div>
+          <div className="ck-pay-row"><span>Subtotal</span><span>DZA {subtotal.toFixed(2)}</span></div>
+          <div className="ck-pay-row"><span>Shipping</span><span>DZA {shippingCost.toFixed(2)}</span></div>
           <div className="ck-divider" />
-          <div className="ck-pay-row ck-pay-total"><span>Total</span><span>${total.toFixed(2)}</span></div>
+          <div className="ck-pay-row ck-pay-total"><span>Total</span><span>DZA {total.toFixed(2)}</span></div>
         </div>
       </div>
 
@@ -199,7 +199,7 @@ function StepPayment({ onNext, onBack }) {
         </div>
         <div className="ck-form-actions">
           <button className="ck-back-btn" onClick={onBack}>← BACK</button>
-          <button className="ck-pay-btn" onClick={onNext}> PAY ${total.toFixed(2)}</button>
+          <button className="ck-pay-btn" onClick={onNext}> PAY DZA {total.toFixed(2)}</button>
         </div>
       </div>
     </div>

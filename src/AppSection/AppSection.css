@@ -1,91 +1,89 @@
-/* 1. IMPORTS & VARIABLES */
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=Bebas+Neue&family=Inter:wght@300;400&display=swap');
+/* ═══════════════════════════════════════════════════════════
+   APPSECTION.CSS
+   Dark gymrat theme · runner image fills phone screen
+   ═══════════════════════════════════════════════════════════ */
 
-:root {
-  --red: #e8293a;
-  --dark-red: #730c1e;
-  --muted: rgba(224, 224, 224, 0.6);
-  --light: #ffffff;
-  --bg-black: #0a0a0a;
-  --card-bg: #1a1a1a;
-}
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=Bebas+Neue&family=Barlow:wght@300;400;500&display=swap');
 
-/* 2. SECTION LAYOUT */
+/* ── SECTION ────────────────────────────────────────────── */
 #app {
-  background: var(--bg-black);
+  background: #060810;
   position: relative;
-  padding: 80px 10%;
+  padding: 90px 8%;
   overflow: hidden;
-  color: var(--light);
-  font-family: 'Inter', sans-serif;
+  color: #e0e0e0;
+  font-family: 'Barlow', sans-serif;
 }
 
-#app::before {
-  content: '';
+.app-bg-glow {
   position: absolute;
-  top: -200px;
-  right: -200px;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(115, 12, 30, 0.15) 0%, transparent 65%);
+  top: -150px;
+  right: -150px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(115,12,30,0.18) 0%, transparent 65%);
   pointer-events: none;
+  z-index: 0;
 }
 
+/* ── TWO COLUMNS ────────────────────────────────────────── */
 .app-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  gap: 60px;
   align-items: center;
   position: relative;
   z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* 3. TYPOGRAPHY & TEXT */
-.section-label {
-  color: var(--red);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 14px;
+/* ══════════════════════════════════════════════════════════
+   LEFT — TEXT CONTENT
+   ══════════════════════════════════════════════════════════ */
+.app-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
   font-weight: 700;
-  margin-bottom: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #730c1e;
+  margin-bottom: 14px;
 }
 
-.section-title {
-  font-family: 'Bebas Neue';
-  font-size: 3.5rem;
-  letter-spacing: 2px;
-  margin: 0;
+.app-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 0.93;
+  letter-spacing: 0.01em;
+  color: #e8e0e0;
+  margin: 0 0 24px;
 }
-
-.app-tagline {
-  font-family: 'Bebas Neue';
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  line-height: 0.92;
-  letter-spacing: 1px;
-  margin-bottom: 1.5rem;
-  color: #e0e0e0;
-}
-
-.app-tagline em, .section-title em {
-  color: var(--red);
+.app-heading em {
   font-style: normal;
+  color: #730c1e;
 }
 
 .app-desc {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 300;
-  color: var(--muted);
+  color: rgba(224,224,224,0.6);
   line-height: 1.8;
   max-width: 460px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 32px;
 }
 
-/* 4. FEATURES LIST */
+/* Features */
 .app-features {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  margin-bottom: 2.8rem;
+  gap: 18px;
+  margin-bottom: 36px;
 }
 
 .app-feature {
@@ -95,46 +93,45 @@
 }
 
 .app-feature-icon {
-  width: 40px;
-  height: 40px;
-  background: rgba(115, 12, 30, 0.12);
-  border: 1px solid rgba(115, 12, 30, 0.35);
-  border-radius: 8px;
+  width: 50px;
+  height: 42px;
+  background: rgba(115,12,30,0.12);
+  border: 1px solid rgba(115,12,30,0.35);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: background 0.25s, transform 0.25s;
 }
-
 .app-feature:hover .app-feature-icon {
-  background: var(--red);
+  background: #730c1e;
   transform: scale(1.1);
 }
 
 .app-feature-title {
-  font-family: 'Barlow Condensed';
-  font-size: 15px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 2px;
   color: #e0e0e0;
+  margin-bottom: 3px;
 }
 
 .app-feature-desc {
   font-size: 12px;
-  color: var(--muted);
-  line-height: 1.5;
+  color: rgba(224,224,224,0.55);
+  line-height: 1.55;
 }
 
-/* 5. DOWNLOAD BUTTONS */
+/* Store buttons */
 .app-download-row {
   display: flex;
-  gap: 1rem;
-  align-items: center;
+  gap: 14px;
   flex-wrap: wrap;
+  margin-bottom: 22px;
 }
 
 .app-store-btn {
@@ -142,181 +139,342 @@
   align-items: center;
   gap: 10px;
   background: #1a1a1a;
-  border: 1px solid rgba(115, 12, 30, 0.25);
-  border-radius: 10px;
+  border: 1px solid rgba(115,12,30,0.25);
+  border-radius: 12px;
   padding: 12px 20px;
-  cursor: pointer;
   text-decoration: none;
   color: #e0e0e0;
-  transition: all 0.25s;
-  min-width: 160px;
+  min-width: 155px;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
 }
-
 .app-store-btn:hover {
-  border-color: var(--red);
-  background: rgba(232, 41, 58, 0.08);
+  border-color: #730c1e;
+  background: rgba(115,12,30,0.08);
   transform: translateY(-3px);
 }
 
-.app-store-icon { font-size: 26px; }
-.app-store-label { font-size: 10px; color: var(--muted); text-transform: uppercase; }
-.app-store-name { font-family: 'Barlow Condensed'; font-size: 17px; font-weight: 700; color: #e0e0e0; }
+.app-store-icon { font-size: 24px; }
+.app-store-label {
+  font-size: 9px;
+  color: rgba(224,224,224,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.app-store-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+}
 
-.app-rating { display: flex; align-items: center; gap: 10px; margin-top: 1.8rem; }
+/* Rating */
+.app-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .app-stars { color: #f59e0b; font-size: 14px; letter-spacing: 2px; }
-.app-rating-text { font-size: 12px; color: #888; }
+.app-rating-text { font-size: 12px; color: #666; }
 
-/* 6. PHONE MOCKUP & ANIMATIONS */
+/* ══════════════════════════════════════════════════════════
+   RIGHT — PHONE MOCKUP
+   ══════════════════════════════════════════════════════════ */
 .app-mockup-wrap {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 600px;
 }
 
-.app-glow {
+/* Notification bubble */
+.app-notif-bubble {
   position: absolute;
-  width: 340px;
-  height: 340px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(115, 12, 30, 0.25) 0%, transparent 70%);
-  animation: appGlow 3s ease-in-out infinite alternate;
-  pointer-events: none;
+  top: 20px;
+  left: -30px;
+  z-index: 20;
+  background: #1a1a2e;
+  border: 1px solid rgba(115,12,30,0.4);
+  border-radius: 14px;
+  padding: 14px 16px;
+  width: 210px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  animation: floatUp 3s ease-in-out infinite;
 }
 
-@keyframes appGlow {
-  from { transform: scale(0.9); opacity: 0.6; }
-  to { transform: scale(1.1); opacity: 1; }
+.notif-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.notif-fire { font-size: 20px; flex-shrink: 0; }
+.notif-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #e0e0e0;
+  margin-bottom: 4px;
+}
+.notif-body {
+  font-size: 11px;
+  color: rgba(224,224,224,0.55);
+  line-height: 1.5;
 }
 
+/* Progress bubble */
+.app-progress-bubble {
+  position: absolute;
+  bottom: 40px;
+  right: -20px;
+  z-index: 20;
+  background: #060810;
+  border: 1px solid rgba(115,12,30,0.4);
+  border-radius: 14px;
+  padding: 16px 20px;
+  width: 155px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  animation: floatDown 3.5s ease-in-out infinite;
+}
+
+.progress-pct {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px;
+  color: #730c1e;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.progress-label {
+  font-size: 12px;
+  color: rgba(224,224,224,0.55);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.progress-bar-bg {
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  width: 72%;
+  background: #730c1e;
+  border-radius: 4px;
+}
+
+@keyframes floatUp   { 0%,100%{transform:translateY(0)}  50%{transform:translateY(-8px)} }
+@keyframes floatDown { 0%,100%{transform:translateY(0)}  50%{transform:translateY(8px)} }
+
+/* ── PHONE FRAME ────────────────────────────────────────── */
 .app-phone {
   position: relative;
-  width: 260px;
-  background: #111;
-  border-radius: 40px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.04), 0 40px 80px rgba(0, 0, 0, 0.7);
+  width: 290px;
+  height: 540px;
+  background: #060810;
+  border-radius: 47px;
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow:
+    0 0 0 6px #060810,
+    0 40px 80px rgba(0,0,0,0.75),
+    0 0 60px rgba(115,12,30,0.12);
   overflow: hidden;
   animation: phoneFloat 4s ease-in-out infinite;
-  z-index: 5;
+  z-index: 10;
 }
 
 @keyframes phoneFloat {
-  0%, 100% { transform: translateY(0px) rotate(-1deg); }
-  50% { transform: translateY(-14px) rotate(1deg); }
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-12px) rotate(1deg); }
 }
 
+/* Notch */
 .phone-notch {
   position: absolute;
-  top: 0; left: 50%; transform: translateX(-50%);
-  width: 90px; height: 26px; background: #0e0e0e;
-  border-radius: 0 0 18px 18px; z-index: 10;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 26px;
+  background: #060810;
+  border-radius: 0 0 20px 20px;
+  z-index: 20;
 }
 
-.phone-screen {
-  width: 100%;
-  background: #0a0a0a;
-  padding: 32px 0 0;
-  min-height: 520px;
-  display: flex;
-  flex-direction: column;
-}
-
+/* Status bar */
 .phone-statusbar {
   display: flex;
   justify-content: space-between;
-  padding: 4px 18px 8px;
+  padding: 10px 18px 6px;
   font-size: 9px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255,255,255,0.35);
+  font-family: 'Barlow', sans-serif;
 }
 
+/* App header row */
 .phone-header {
-  padding: 8px 16px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 6px 16px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.phone-logo { display: flex; align-items: center; gap: 6px; }
-.phone-logo-icon {
-  width: 24px; height: 24px; background: var(--red);
-  clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Bebas Neue'; font-size: 10px; color: white;
-}
-
-.phone-banner {
-  margin: 10px 12px;
-  background: linear-gradient(120deg, rgba(232, 41, 58, 0.9), rgba(176, 30, 43, 0.9));
-  border-radius: 12px;
-  padding: 14px;
-}
-
-.phone-banner-title { font-family: 'Bebas Neue'; font-size: 16px; color: white; line-height: 1.1; }
-
-.phone-stats-row { display: flex; gap: 6px; margin: 0 12px 10px; }
-.phone-stat-pill {
-  flex: 1; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px; padding: 8px 4px; text-align: center;
-}
-
-/* 7. NOTIFICATION BUBBLES */
-.app-notif-bubble {
-  position: absolute; top: 30px; left: -60px; z-index: 10;
-  background: var(--card-bg); border: 1px solid rgba(115, 12, 30, 0.4);
-  border-radius: 12px; padding: 12px; width: 200px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-  animation: bubbleFloat1 3s ease-in-out infinite;
-}
-
-.app-notif-bubble2 {
-  position: absolute; bottom: 60px; right: -50px; z-index: 10;
-  background: var(--card-bg); border: 1px solid rgba(115, 12, 30, 0.4);
-  border-radius: 12px; padding: 12px 16px; width: 160px;
-  animation: bubbleFloat2 3.5s ease-in-out infinite;
-}
-
-@keyframes bubbleFloat1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-@keyframes bubbleFloat2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
-
-.bubble2-num { font-family: 'Bebas Neue'; font-size: 2rem; color: var(--red); line-height: 1; }
-.bubble2-bar { height: 4px; background: rgba(255, 255, 255, 0.08); border-radius: 99px; margin-top: 5px; }
-.bubble2-bar-fill { height: 100%; width: 72%; background: var(--red); }
-
-/* Responsive Fix */
-@media (max-width: 992px) {
-  .app-layout { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
-  .app-desc { margin: 0 auto 2.5rem; }
-  .app-features { align-items: center; }
-  .app-download-row { justify-content: center; }
-  .app-rating { justify-content: center; }
-  .app-mockup-wrap { margin-top: 3rem; }
-}
-/* This targets the logo in the Navbar we added */
-.app-nav {
-  padding: 20px 0;
-  display: flex;
-  justify-content: flex-start;
-  z-index: 10; /* Keeps it above the background effects */
-}
-
-.main-logo {
-  height: 50px; /* Adjust this number to change the size */
-  width: auto;  /* Maintains the aspect ratio so it doesn't look squashed */
-  display: block;
-  object-fit: contain;
-}
-.main-logo {
-  height: 45px; /* Adjust this to fit your header height */
-  width: auto;
-  display: block;
-  object-fit: contain;
-}
-
-/* Ensure the link doesn't have weird padding */
-.logo-link {
+.phone-logo-row {
   display: flex;
   align-items: center;
-  text-decoration: none;
+  gap: 6px;
+}
+.phone-logo-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+.phone-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #e0e0e0;
+}
+.phone-header-icon { font-size: 16px; }
+
+/* ── RUNNER IMAGE INSIDE PHONE ───────────────────────────
+   This is the main fix: runner fills the phone screen
+   with a red circle behind and text overlay at bottom
+   ─────────────────────────────────────────────────────── */
+.phone-screen-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 390px;       /* tall enough to fill phone */
+  overflow: hidden;
+  background: #0a0508;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Red circle behind athlete */
+
+/* Athlete/runner image */
+.phone-runner-img {
+  position: relative;
+  z-index: 1;
+  width: 190%;
+  height: 140%;
+  object-fit: contain;       /* keeps full body visible */
+  object-position: center top;
+  filter: drop-shadow(0 8px 24px rbga(225,225,225,0.3));
+}
+
+/* Dark gradient overlay at bottom */
+.phone-screen-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: linear-gradient(to bottom, transparent, rgb(6,8,16) 85%);
+  z-index: 2;
+}
+
+/* Text over image */
+.phone-screen-text {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 3;
+}
+
+
+.phone-screen-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 6px;
+}
+
+.phone-screen-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.phone-screen-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.phone-btn-signup {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.phone-btn-login {
+  background: #730c1e;
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+/* Stats row at bottom of phone */
+.phone-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.phone-stat {
+  padding: 12px 6px;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+.phone-stat:last-child { border-right: none; }
+
+.phone-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  color: #e0e0e0;
+  line-height: 1;
+}
+.phone-stat-lbl {
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 2px;
+  font-family: 'Barlow', sans-serif;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+  }
+  .app-desc     { margin: 0 auto 32px; }
+  .app-features { align-items: flex-start; }
+  .app-download-row { justify-content: center; }
+  .app-rating   { justify-content: center; }
+  .app-mockup-wrap { min-height: 500px; }
+  .app-notif-bubble { left: 0; }
+  .app-progress-bubble { right: 0; }
+}
+
+@media (max-width: 600px) {
+  #app { padding: 80px 5%; }
+  .app-phone { width: 230px; }
+  .phone-screen-img-wrap { height: 380px; }
+  .phone-red-circle { width: 180px; height: 180px; }
+  .app-notif-bubble { display: none; }
+  .app-progress-bubble { display: none; }
 }

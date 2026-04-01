@@ -20,14 +20,14 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Barlow', sans-serif;
-  background: #0a0a0a;
+  background: #060810;
   color: #e0e0e0;
   overflow-x: hidden;
 }
 
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0a0a0a; }
-::-webkit-scrollbar-thumb { background: var(--red); }
+::-webkit-scrollbar-track { background: #060810; }
+::-webkit-scrollbar-thumb { background: #730c1e; }
 
 section { padding: 7rem 3rem; }
 
