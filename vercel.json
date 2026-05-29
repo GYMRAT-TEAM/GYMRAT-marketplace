@@ -1,0 +1,5 @@
+{
+    "version": 2,
+    "buildCommand": "cd frontend/gymrat-marketplace && npm install && DISABLE_ESLINT_PLUGIN=true npm run build",
+    "outputDirectory": "frontend/gymrat-marketplace/build"
+}
