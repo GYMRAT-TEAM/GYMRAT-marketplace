@@ -1,24 +1,25 @@
-
 /* ==========================
    Contact Section
 ========================== */
 #contact {
   background: #060810;
-  border-top: 1px solid rgba(115,12,29,0.85);
+  border-top: 1px solid rgba(115, 12, 29, 0.85);
   padding: 5rem 5%;
   color: #e0e0e0;
 }
 
 /* Headings inside contact */
 #contact h2.contact-title {
-  color: #730C1E;       /* Get in Touch heading */
+  color: #730C1E;
+  /* Get in Touch heading */
   font-family: 'Bebas Neue', sans-serif;
   font-size: 3rem;
   margin-bottom: 0.5rem;
 }
 
 #contact p.contact-sub {
-  color: #ffffff;       /* Subheading stays white */
+  color: #ffffff;
+  /* Subheading stays white */
   font-family: 'Barlow', sans-serif;
   font-size: 1rem;
   margin-bottom: 2rem;
@@ -32,7 +33,10 @@
 }
 
 @media (max-width: 900px) {
-  .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 }
 
 .contact-info-item {
@@ -60,7 +64,7 @@
 
 .contact-info-val {
   font-size: 14px;
-  color: rgba(224,224,224,0.65);
+  color: rgba(224, 224, 224, 0.65);
 }
 
 /* Form */
@@ -77,15 +81,17 @@
 }
 
 @media (max-width: 700px) {
-  .form-row { grid-template-columns: 1fr; }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .form-input,
 .form-textarea,
 .form-select {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(115,12,30,0.2);
-  color: #e0e0e0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(115, 12, 30, 0.3);
+  color: #ffffff;
   padding: 13px 16px;
   border-radius: 8px;
   font-family: 'Barlow', sans-serif;
@@ -96,11 +102,16 @@
   backdrop-filter: blur(10px);
 }
 
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .form-input:focus,
 .form-textarea:focus,
 .form-select:focus {
   border-color: #730C1E;
-  background: rgba(115,12,30,0.05);
+  background: rgba(115, 12, 30, 0.08);
 }
 
 .form-textarea {
@@ -109,6 +120,6 @@
 }
 
 .form-select option {
-  background: rgba(255,255,255,0.03);
-  color: #e0e0e0;
+  background: #060810;
+  color: #ffffff;
 }

@@ -2,21 +2,26 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './PaymentPlan.css';
 import logoImg from '../Assets/logo.png';
+import { upgradePlan } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 
 export default function PaymentPlan() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { updateUser } = useAuth();
   const plan = location.state?.plan || { name: 'GymRat VIP Plan', price: '9990' };
+  const upgradeMode = location.state?.upgradeMode || false; // true when coming from Settings
 
   // Step 1: 'select', Step 2: 'card-details'
   const [step, setStep] = useState('select');
   const [method, setMethod] = useState('');
+  const [upgrading, setUpgrading] = useState(false);
 
   const [form, setForm] = useState({
     cardNumber: '',
     cvv: '',
     expDate: '',
-    password: '' // from Image 1 design
+    password: ''
   });
 
   const handleChange = (e) => {
@@ -39,27 +44,44 @@ export default function PaymentPlan() {
 
   const displayPrice = plan.price === '00' ? '0' : (parseInt(plan.price)).toLocaleString();
   const numPrice = plan.price === '00' ? 0 : parseInt(plan.price);
-  const vat = numPrice * 0.20; // 20% VAT
+  const vat = numPrice * 0.20;
   const total = numPrice + vat;
+
+  const completePayment = async (paymentMethod) => {
+    if (upgradeMode) {
+      // Upgrade plan via API — no new account needed
+      setUpgrading(true);
+      try {
+        const planName = plan.name.replace('GymRat ', '').replace(' Plan', '');
+        const res = await upgradePlan(planName, paymentMethod);
+        updateUser(res.data.user);
+        navigate('/settings', { state: { upgraded: true, planName } });
+      } catch (err) {
+        alert(err.response?.data?.message || 'Upgrade failed. Please try again.');
+      } finally {
+        setUpgrading(false);
+      }
+    } else {
+      navigate('/create-account', { state: { plan, paymentConfirmed: true, paymentMethod } });
+    }
+  };
 
   const handleSelectMethod = (m) => {
     setMethod(m);
     if (m === 'card') {
       setStep('card-details');
     } else {
-      // Logic for paypal/crypto would go here
-      alert(`${m} selected. Proceeding to create account...`);
-      navigate('/create-account', { state: { plan } });
+      completePayment(m);
     }
   };
 
-  const handleProceed = (e) => {
+  const handleProceed = async (e) => {
     e.preventDefault();
     if (!form.cardNumber || form.cardNumber.length < 19 || form.expDate.length < 5 || form.cvv.length < 3 || !form.password) {
       alert("Please fill in all card details correctly");
       return;
     }
-    navigate('/create-account', { state: { plan } });
+    await completePayment('card');
   };
 
   const handleBack = () => {
@@ -237,7 +259,9 @@ export default function PaymentPlan() {
                   </div>
                 </div>
 
-              <button type="submit" className="s2-pay-btn">Pay Now</button>
+              <button type="submit" className="s2-pay-btn" disabled={upgrading}>
+                {upgrading ? 'Processing…' : 'Pay Now'}
+              </button>
             </form>
           </div>
 

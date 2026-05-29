@@ -318,6 +318,27 @@
 .pc-wish:hover   { background: rgba(0,0,0,0.8); color: #fff; }
 .pc-wish.on      { color: var(--mp-red2); }
 
+/* View hint on hover */
+.pc-view-hint {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(115,12,30,0.85);
+  color: #fff;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px;
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+  z-index: 3;
+}
+.pc-card:hover .pc-view-hint { transform: translateY(0); }
+
+/* Out of stock badge */
+.pc-badge.out-tag { background: #333; left: auto; right: 10px; }
+
 /* Card body */
 .pc-body {
   padding: 14px 16px 16px;
@@ -444,3 +465,26 @@
 }
 .mp-heading span { color: #e0e0e0; }
 .mp-heading em   { font-style: normal; color: #710c1e; }
+
+.reset-filters-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px 15px;
+  background: var(--mp-red);
+  color: #fff;
+  border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-filters-btn:hover {
+  background: #9B1C1C;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(155, 28, 28, 0.4);
+}

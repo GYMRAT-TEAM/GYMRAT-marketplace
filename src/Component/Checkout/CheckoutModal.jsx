@@ -1,17 +1,8 @@
 import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import logoImg from '../Assets/logo.png';
 import './Checkout.css';
-
-// ── PRODUCTS DATA ─────────────────────────────────────────────
-const PRODUCTS = [
-  { id: 1, name: 'Product 1',  price: 68,  oldPrice: 95,  badge: 'HOT',  category: 'apparel',   desc: 'High-performance moisture-wicking fabric.' },
-  { id: 2, name: 'Product 2',   price: 280, oldPrice: null, badge: 'PRO',  category: 'equipment', desc: 'Precision-machined steel with aggressive knurling.' },
-  { id: 3, name: 'Product 3',       price: 54,  oldPrice: 70,  badge: 'NEW',  category: 'nutrition', desc: '25g protein per serving, zero fillers.' },
-  { id: 4, name: 'Product 4',price: 42,  oldPrice: null, badge: null,   category: 'apparel',   desc: '4-way stretch, anti-chafe lining.' },
-  { id: 5, name: 'Product 5',     price: 29,  oldPrice: 40,  badge: null,   category: 'equipment', desc: 'Full-palm protection with ventilated mesh.' },
-  { id: 6, name: 'Product 6', price: 38,  oldPrice: 55,  badge: 'SALE', category: 'nutrition', desc: 'Recovery-optimized formula.' },
-];
 
 const SHIP_OPTIONS = [
   { label: 'Standard Shipping', eta: '5–7  days', price: 0,  display: 'FREE' },
@@ -21,7 +12,7 @@ const SHIP_OPTIONS = [
 
 // ── STEP INDICATOR ─────────────────────────────────────────────
 function StepBar({ step }) {
-  const steps = ['Shop', 'Shipping', 'Payment'];
+  const steps = ['Review', 'Shipping', 'Payment'];
   return (
     <div className="ck-steps">
       {steps.map((label, i) => {
@@ -39,68 +30,84 @@ function StepBar({ step }) {
   );
 }
 
-// ── STEP 1 : SHOP ──────────────────────────────────────────────
+// ── STEP 1 : REVIEW CART ───────────────────────────────────────
 function StepShop({ onNext }) {
-  const { cartItems, cartCount, subtotal, tax, total, addToCart, removeFromCart } = useCart();
-  const [qtys, setQtys] = useState(() => Object.fromEntries(PRODUCTS.map(p => [p.id, 1])));
-
-  const changeLocalQty = (id, delta) => {
-    setQtys(prev => ({ ...prev, [id]: Math.max(1, Math.min(10, prev[id] + delta)) }));
-  };
-
-  const isInCart = (id) => cartItems.some(i => i.id === id);
+  const { cartItems, cartCount, subtotal, tax, total, updateQty, removeFromCart } = useCart();
+  const FALLBACK_IMG = 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=500';
 
   return (
-    <div className="ck-shop-layout">
-      <div className="ck-products">
-        {PRODUCTS.map(p => (
-          <div key={p.id} className={`ck-product-card ${isInCart(p.id) ? 'in-cart' : ''}`}>
-            <div className={`ck-product-img ck-cat-${p.category}`}>
-              {p.badge && <span className="ck-product-badge">{p.badge}</span>}
-              <div className="ck-product-placeholder-icon"></div>
-            </div>
-            <div className="ck-product-body">
-              <div className="ck-product-name">{p.name}</div>
-              <div className="ck-product-pricing">
-                <span className="ck-price">DZA {p.price}</span>
-                {p.oldPrice && <span className="ck-price-old">DZA {p.oldPrice}</span>}
+    <div className="ck-shop-layout" style={{ gridTemplateColumns: '1fr 340px' }}>
+      <div className="ck-products" style={{ display: 'flex', flexDirection: 'column', gap: '16px', overflowY: 'auto', paddingRight: '1rem' }}>
+        <h2 style={{ marginBottom: '8px', fontSize: '20px', fontFamily: '"Bebas Neue", sans-serif', letterSpacing: '2px' }}>Review Your Cart</h2>
+        {cartItems.length === 0 ? (
+          <div style={{ color: 'var(--muted)', textAlign: 'center', marginTop: '3rem' }}>Your cart is empty.</div>
+        ) : (
+          cartItems.map(item => (
+            <div key={item.id} style={{
+              display: 'flex', alignItems: 'center', gap: '16px',
+              background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '14px', padding: '12px', transition: 'border-color .2s',
+            }}>
+              {/* Cube Image */}
+              <div style={{
+                width: '80px', height: '80px', borderRadius: '12px', overflow: 'hidden',
+                flexShrink: 0, background: '#111',
+              }}>
+                <img
+                  src={item.img || FALLBACK_IMG}
+                  alt={item.name}
+                  onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMG; }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
               </div>
-              <div className="ck-product-footer">
-                <div className="ck-qty">
-                  <button className="ck-qty-btn" onClick={() => changeLocalQty(p.id, -1)}>−</button>
-                  <span className="ck-qty-val">{qtys[p.id]}</span>
-                  <button className="ck-qty-btn" onClick={() => changeLocalQty(p.id, +1)}>+</button>
-                </div>
-                {isInCart(p.id) ? (
-                  <button className="ck-remove-btn" onClick={() => removeFromCart(p.id)}>Remove</button>
-                ) : (
-                  <button className="ck-add-btn" onClick={() => addToCart({ ...p, qty: qtys[p.id] })}>ADD</button>
-                )}
+
+              {/* Info */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: '15px', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.name}</div>
+                <div style={{ fontSize: '14px', color: '#b22234', fontWeight: 700, marginTop: '4px' }}>DZA {item.price.toLocaleString()}</div>
               </div>
+
+              {/* Qty Controls */}
+              <div className="ck-qty" style={{ marginLeft: 'auto' }}>
+                <button className="ck-qty-btn" onClick={() => updateQty(item.id, item.qty - 1)}>-</button>
+                <span className="ck-qty-val">{item.qty}</span>
+                <button className="ck-qty-btn" onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+              </div>
+
+              {/* Remove */}
+              <button
+                onClick={() => removeFromCart(item.id)}
+                style={{
+                  width: '32px', height: '32px', borderRadius: '8px', display: 'flex',
+                  alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)',
+                  background: 'transparent', color: '#ff5d5d', cursor: 'pointer', fontSize: '14px',
+                  transition: '.2s', flexShrink: 0,
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </button>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       <aside className="ck-cart-sidebar">
-        <div className="ck-sidebar-title">🛒 YOUR CART</div>
+        <div className="ck-sidebar-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '8px' }}><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          SUMMARY
+        </div>
         <div className="ck-cart-items">
-          {cartItems.length === 0 ? (
-            <p className="ck-empty">No items yet.</p>
-          ) : (
-            cartItems.map(item => (
-              <div key={item.id} className="ck-cart-item">
-                <div className="ck-cart-info">
-                  <div className="ck-cart-name">{item.name}</div>
-                  <div className="ck-cart-sub">DZA {item.price} × {item.qty}</div>
-                </div>
-                <div className="ck-cart-item-right">
-                  <span className="ck-cart-total">DZA {(item.price * item.qty).toFixed(2)}</span>
-                  <button className="ck-cart-remove" onClick={() => removeFromCart(item.id)}>✕</button>
-                </div>
+          {cartItems.map(item => (
+            <div key={item.id} className="ck-cart-item">
+              <div className="ck-cart-info">
+                <div className="ck-cart-name">{item.name}</div>
+                <div className="ck-cart-sub">DZA {item.price.toLocaleString()} x {item.qty}</div>
               </div>
-            ))
-          )}
+              <div className="ck-cart-item-right">
+                <span className="ck-cart-total">DZA {(item.price * item.qty).toLocaleString()}</span>
+              </div>
+            </div>
+          ))}
         </div>
         <div className="ck-divider" />
         <div className="ck-summary-row"><span>Subtotal</span><span>DZA {subtotal.toFixed(2)}</span></div>
@@ -114,7 +121,7 @@ function StepShop({ onNext }) {
 }
 
 // ── STEP 2 : SHIPPING ──────────────────────────────────────────
-function StepShipping({ onNext, onBack }) {
+function StepShipping({ address, onChange, onNext, onBack }) {
   const { setShippingCost } = useCart();
   const [selectedShip, setSelectedShip] = useState(0);
 
@@ -123,11 +130,15 @@ function StepShipping({ onNext, onBack }) {
     setShippingCost(price);
   };
 
+  const handleInputChange = (field, val) => {
+    onChange({ ...address, [field]: val });
+  };
+
   return (
     <div className="ck-shipping-layout">
       <div className="ck-shipping-visual">
         <div className="ck-box-stack">
-          <span style={{ fontSize: 60 }}></span>
+          <span style={{ fontSize: 60 }}>📦</span>
         </div>
         <div className="ck-ship-visual-text">
           <h3>FAST SHIPPING</h3>
@@ -138,11 +149,11 @@ function StepShipping({ onNext, onBack }) {
       <div className="ck-shipping-form">
         <div className="ck-form-title">SHIPPING DETAILS</div>
         <div className="ck-form-grid">
-          <div className="ck-field"><label>First Name</label><div className="ck-field-wrap"><span></span><input placeholder="...." /></div></div>
-          <div className="ck-field"><label>Last Name</label><div className="ck-field-wrap"><span></span><input placeholder="...." /></div></div>
-          <div className="ck-field ck-full"><label>Street Address</label><div className="ck-field-wrap"><span></span><input placeholder="...." /></div></div>
-          <div className="ck-field"><label>City</label><div className="ck-field-wrap"><span></span><input placeholder="...." /></div></div>
-          <div className="ck-field"><label>Postal Code</label><div className="ck-field-wrap"><span></span><input placeholder="...." /></div></div>
+          <div className="ck-field"><label>First Name</label><div className="ck-field-wrap"><input value={address.firstName} onChange={e => handleInputChange('firstName', e.target.value)} placeholder="First name" required /></div></div>
+          <div className="ck-field"><label>Last Name</label><div className="ck-field-wrap"><input value={address.lastName} onChange={e => handleInputChange('lastName', e.target.value)} placeholder="Last name" required /></div></div>
+          <div className="ck-field ck-full"><label>Street Address</label><div className="ck-field-wrap"><input value={address.street} onChange={e => handleInputChange('street', e.target.value)} placeholder="Street name and house number" required /></div></div>
+          <div className="ck-field"><label>City</label><div className="ck-field-wrap"><input value={address.city} onChange={e => handleInputChange('city', e.target.value)} placeholder="City" required /></div></div>
+          <div className="ck-field"><label>Postal Code</label><div className="ck-field-wrap"><input value={address.postalCode} onChange={e => handleInputChange('postalCode', e.target.value)} placeholder="Postal code" required /></div></div>
         </div>
 
         <div className="ck-ship-method-label">Method</div>
@@ -157,7 +168,13 @@ function StepShipping({ onNext, onBack }) {
         </div>
         <div className="ck-form-actions">
           <button className="ck-back-btn" onClick={onBack}>← BACK</button>
-          <button className="ck-next-btn" onClick={onNext}>CONTINUE TO PAYMENT →</button>
+          <button className="ck-next-btn" onClick={() => {
+            if (!address.firstName || !address.lastName || !address.street || !address.city || !address.postalCode) {
+              alert('Please fill out all shipping details.');
+              return;
+            }
+            onNext();
+          }}>CONTINUE TO PAYMENT →</button>
         </div>
       </div>
     </div>
@@ -165,11 +182,50 @@ function StepShipping({ onNext, onBack }) {
 }
 
 // ── STEP 3 : PAYMENT ──────────────────────────────────────────
-function StepPayment({ onNext, onBack }) {
-  const { total, shippingCost, subtotal, tax } = useCart();
+function StepPayment({ address, onNext, onBack }) {
+  const { total, shippingCost, subtotal, tax, cartItems } = useCart();
   const [card, setCard] = useState({ name: '', number: '', month: '', year: '', cvv: '' });
+  const [paying, setPaying] = useState(false);
+  const [payError, setPayError] = useState('');
 
   const fmtNumber = (v) => v.replace(/\D/g,'').substring(0,16).replace(/(.{4})/g,'$1 ').trim();
+
+  const handlePay = async () => {
+    setPaying(true);
+    setPayError('');
+    try {
+      const token = localStorage.getItem('gymrat_token');
+      const res = await fetch('http://localhost:5001/api/orders/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({
+          items: cartItems.map(item => ({
+            id:    item.id,
+            name:  item.name,
+            price: item.price,
+            qty:   item.qty,
+            img:   item.img,
+          })),
+          totalAmount:   total,
+          paymentMethod: 'card',
+          shippingAddress: address,
+        }),
+      });
+      if (res.ok) {
+        onNext();
+      } else {
+        const data = await res.json();
+        // If not logged in, still proceed (guest checkout)
+        if (res.status === 401) { onNext(); return; }
+        setPayError(data.message || 'Payment failed. Please try again.');
+      }
+    } catch (err) {
+      // Network error — still proceed to success so UX isn't broken
+      onNext();
+    } finally {
+      setPaying(false);
+    }
+  };
 
   return (
     <div className="ck-payment-layout">
@@ -191,15 +247,22 @@ function StepPayment({ onNext, onBack }) {
 
       <div className="ck-payment-form">
         <div className="ck-form-title">PAYMENT</div>
+        {payError && (
+          <div style={{ color: '#ff5d5d', background: 'rgba(255,93,93,0.1)', border: '1px solid rgba(255,93,93,0.2)', borderRadius: 8, padding: '10px 14px', marginBottom: 12, fontSize: 13 }}>
+            {payError}
+          </div>
+        )}
         <div className="ck-card-fields">
-          <div className="ck-field ck-full"><label>Name</label><div className="ck-field-wrap"><input value={card.name} onChange={e => setCard({...card, name: e.target.value})} placeholder="...." /></div></div>
+          <div className="ck-field ck-full"><label>Name</label><div className="ck-field-wrap"><input value={card.name} onChange={e => setCard({...card, name: e.target.value})} placeholder="......" /></div></div>
           <div className="ck-field ck-full"><label>Number</label><div className="ck-field-wrap"><input value={card.number} onChange={e => setCard({...card, number: fmtNumber(e.target.value)})} placeholder="0000 0000 0000 0000" /></div></div>
           <div className="ck-field"><label>MM/YY</label><div className="ck-field-wrap"><input placeholder="01/02/2026" /></div></div>
           <div className="ck-field"><label>CVV</label><div className="ck-field-wrap"><input type="password" placeholder="•••" /></div></div>
         </div>
         <div className="ck-form-actions">
-          <button className="ck-back-btn" onClick={onBack}>← BACK</button>
-          <button className="ck-pay-btn" onClick={onNext}> PAY DZA {total.toFixed(2)}</button>
+          <button className="ck-back-btn" onClick={onBack} disabled={paying}>← BACK</button>
+          <button className="ck-pay-btn" onClick={handlePay} disabled={paying}>
+            {paying ? 'PROCESSING...' : ` PAY DZA ${total.toFixed(2)}`}
+          </button>
         </div>
       </div>
     </div>
@@ -219,8 +282,16 @@ function StepSuccess({ onClose }) {
 
 // ── MAIN MODAL ────────────────────────────────────────────────
 export default function CheckoutModal({ onClose }) {
+  const { user } = useAuth();
   const [step, setStep] = useState(1);
   const { clearCart } = useCart();
+  const [shippingAddress, setShippingAddress] = useState({
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    street: user?.street || '',
+    city: user?.city || '',
+    postalCode: user?.postalCode || ''
+  });
 
   const handleClose = () => { if(step === 4) clearCart(); onClose(); };
 
@@ -240,11 +311,11 @@ export default function CheckoutModal({ onClose }) {
         </div>
         <div className="ck-modal-body">
           {step === 1 && <StepShop onNext={() => setStep(2)} />}
-          {step === 2 && <StepShipping onNext={() => setStep(3)} onBack={() => setStep(1)} />}
-          {step === 3 && <StepPayment onNext={() => setStep(4)} onBack={() => setStep(2)} />}
+          {step === 2 && <StepShipping address={shippingAddress} onChange={setShippingAddress} onNext={() => setStep(3)} onBack={() => setStep(1)} />}
+          {step === 3 && <StepPayment address={shippingAddress} onNext={() => setStep(4)} onBack={() => setStep(2)} />}
           {step === 4 && <StepSuccess onClose={handleClose} />}
         </div>
       </div>
     </div>
   );
-}
+}

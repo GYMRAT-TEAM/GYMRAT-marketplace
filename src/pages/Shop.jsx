@@ -13,17 +13,48 @@ const goals = [
 ];
 
 function TodoPanel({ goalKey, onClose }) {
-  const { checkedItems = {}, toggleItem } = useCart();
+  // Destructure direct context methods
+  const { cartItems = [], addToCart, removeFromCart } = useCart();
   if (!goalKey) return null;
 
   const data = goalData[goalKey];
   if (!data) return null;
 
+  // Helper utility to extract clean integers from strings like "DZA 1000"
+  const parsePrice = (priceStr) => {
+    if (typeof priceStr === 'number') return priceStr;
+    if (!priceStr) return 0;
+    const numeric = parseInt(priceStr.replace(/[^0-9]/g, ''), 10);
+    return isNaN(numeric) ? 0 : numeric;
+  };
+
   const allItems = data.sections.flatMap(s => s.items);
-  const done = allItems.filter(i => checkedItems[i.id]).length;
+
+  // Check if item is inside the real CartContext state array
+  const isItemInCart = (itemId) => {
+    return Array.isArray(cartItems) && cartItems.some(cartItem => cartItem.id === itemId);
+  };
+
+  const done = allItems.filter(i => isItemInCart(i.id)).length;
   const pct = allItems.length ? Math.round((done / allItems.length) * 100) : 0;
-  const total = allItems.reduce((s, i) => s + i.price, 0);
-  const saved = allItems.filter(i => checkedItems[i.id]).reduce((s, i) => s + i.price, 0);
+
+  // Calculate pricing math sums
+  const total = allItems.reduce((s, i) => s + parsePrice(i.price), 0);
+  const saved = allItems.filter(i => isItemInCart(i.id)).reduce((s, i) => s + parsePrice(i.price), 0);
+
+  // Dual action Toggle: Adds if missing, Removes if already in card selection
+  const handleItemClick = (item) => {
+    if (isItemInCart(item.id)) {
+      removeFromCart(item.id);
+    } else {
+      addToCart({
+        id: item.id,
+        name: item.name,
+        price: parsePrice(item.price),
+        qty: 1
+      });
+    }
+  };
 
   return (
     <>
@@ -38,7 +69,7 @@ function TodoPanel({ goalKey, onClose }) {
             <div className="todo-progress-bar-bg">
               <div className="todo-progress-bar" style={{ width: pct + '%' }}></div>
             </div>
-            <div className="todo-progress-label">{done} / {allItems.length} done</div>
+            <div className="todo-progress-label">{done} / {allItems.length} added</div>
           </div>
         </div>
 
@@ -46,36 +77,48 @@ function TodoPanel({ goalKey, onClose }) {
           {data.sections.map(section => (
             <div key={section.label}>
               <div className="todo-section-title">{section.label}</div>
-              {section.items.map(item => (
-                <div
-                  key={item.id}
-                  className={`todo-item${checkedItems[item.id] ? ' checked' : ''}`}
-                  onClick={() => toggleItem(item.id)}
-                >
-                  <div className="todo-checkbox">{checkedItems[item.id] ? '✓' : ''}</div>
-                  <div className="todo-item-content">
-                    <div className="todo-item-name">{item.name}</div>
-                    <div className="todo-item-desc">{item.desc}</div>
+              {section.items.map(item => {
+                const added = isItemInCart(item.id);
+                return (
+                  <div
+                    key={item.id}
+                    className={`todo-item${added ? ' checked' : ''}`}
+                    onClick={() => handleItemClick(item)}
+                  >
+                    <div className="todo-checkbox" style={{ backgroundColor: added ? '#10b981' : 'transparent', borderColor: added ? '#10b981' : '' }}>
+                      {added ? '✓' : '+'}
+                    </div>
+                    <div className="todo-item-content">
+                      <div className="todo-item-name">{item.name}</div>
+                      <div className="todo-item-desc">{item.desc}</div>
+                    </div>
+                    <div className="todo-item-price">
+                      {parsePrice(item.price).toLocaleString()} <span className="item-currency">DZD</span>
+                    </div>
+                    <div className={`todo-item-priority ${item.priority}`}>
+                      {added ? 'ADDED' : item.priority === 'must' ? 'MUST' : item.priority === 'nice' ? 'NICE' : 'OPT'}
+                    </div>
                   </div>
-                  <div className="todo-item-price">${item.price}</div>
-                  <div className={`todo-item-priority ${item.priority}`}>
-                    {item.priority === 'must' ? 'MUST' : item.priority === 'nice' ? 'NICE' : 'OPT'}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ))}
         </div>
 
         <div className="todo-panel-footer">
-          <div className="todo-total-row">
-            <span className="todo-total-label">Estimated Total</span>
-            <span className="todo-total-price">
-              ${total}{saved > 0 && <span className="todo-total-checked"> ✓ ${saved} planned</span>}
-            </span>
+          <div className="todo-total-container">
+            <div className="todo-total-label">Estimated Total</div>
+            <div className="todo-total-price">
+              {total.toLocaleString()} <span className="currency">DZD</span>
+            </div>
+            {saved > 0 && (
+              <div className="todo-total-checked">
+                ✓ {saved.toLocaleString()} DZD in cart
+              </div>
+            )}
           </div>
           <button className="btn-shop-all" onClick={() => { window.location.hash = '#products'; onClose(); }}>
-            SHOP ALL ITEMS
+            GO TO CART / PRODUCTS
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
@@ -88,12 +131,13 @@ function TodoPanel({ goalKey, onClose }) {
 
 export default function Shop() {
   const [activeGoal, setActiveGoal] = useState(null);
-  const { checkedItems = {} } = useCart();
+  const { cartItems = [] } = useCart();
 
+  // Tracks remaining missing card components dynamically
   const getRemainingCount = (goalKey) => {
     if (!goalData[goalKey]) return 0;
     const allItems = goalData[goalKey].sections.flatMap(s => s.items);
-    return allItems.filter(i => !checkedItems?.[i.id]).length;
+    return allItems.filter(i => !cartItems.some(cartItem => cartItem.id === i.id)).length;
   };
 
   return (
@@ -109,7 +153,7 @@ export default function Shop() {
 
         <div className="goals-grid">
           {goals.map(g => (
-            <div className="goal-card" key={g.key}>
+            <div className="goal-card" key={g.key} onClick={() => setActiveGoal(g.key)}>
               <button
                 className="goal-todo-btn"
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveGoal(g.key); }}
@@ -131,7 +175,7 @@ export default function Shop() {
                 <div className="goal-cat">{g.cat}</div>
                 <div className="goal-name">{g.name}</div>
                 <div className="goal-desc">{g.desc}</div>
-                <div className="goal-btn" onClick={() => setActiveGoal(g.key)}>
+                <div className="goal-btn">
                   VIEW LIST
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M5 12h14M12 5l7 7-7 7" />
@@ -147,5 +191,3 @@ export default function Shop() {
     </>
   );
 }
-
-
