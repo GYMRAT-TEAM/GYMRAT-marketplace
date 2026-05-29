@@ -1,0 +1,98 @@
+#analytics {
+  background: #060810;
+}
+
+/* Grid */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+/* Cards */
+.analytic-card {
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(115,12,30,0.2);
+  border-top: 3px solid #730c1e;
+  backdrop-filter: blur(15px);
+  transition: all 0.2s ease;
+}
+
+.analytic-card:hover {
+  background: rgba(115,12,30,0.05);
+  border-color: rgba(115,12,30,0.4);
+  transform: translateY(-4px);
+}
+
+/* Remove random colors → keep consistent brand */
+.analytic-card:nth-child(1),
+.analytic-card:nth-child(2),
+.analytic-card:nth-child(3),
+.analytic-card:nth-child(4) {
+  border-top-color: #730c1e;
+}
+
+/* Label */
+.analytic-label {
+  font-family: 'Barlow Condensed';
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(224,224,224,0.35);
+  margin-bottom: 0.5rem;
+}
+
+/* Numbers */
+.analytic-num {
+  font-family: 'Bebas Neue';
+  font-size: 2.8rem;
+  margin-bottom: 0.3rem;
+  color: #e0e0e0;
+}
+
+/* Change indicators */
+.analytic-change {
+  font-size: 12px;
+}
+
+/* Keep green but more premium */
+.analytic-change.up {
+  color: #22c55e;
+}
+
+/* Down = brand red */
+.analytic-change.down {
+  color: #730c1e;
+}
+
+/* Chart */
+.analytics-chart {
+  margin-top: 2rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  padding: 2rem;
+  height: 200px;
+  border: 1px solid rgba(115,12,30,0.2);
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  backdrop-filter: blur(10px);
+}
+
+/* Bars */
+.chart-bar {
+  flex: 1;
+  background: rgba(115,12,30,0.35);
+  border-radius: 3px 3px 0 0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.chart-bar:hover {
+  background: #730c1e;
+  box-shadow: 0 0 12px rgba(115,12,30,0.6);
+}
