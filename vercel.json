@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "frontend/gymrat-marketplace/build",
   "rewrites": [
     {
       "source": "/(.*)",
