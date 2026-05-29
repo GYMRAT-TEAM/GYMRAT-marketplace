@@ -1,7 +1,6 @@
 import './SignUp.css';
 import logoImg from '../Assets/logo.png';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 
 const plans = [
   {
@@ -47,19 +46,14 @@ const plans = [
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const { } = useAuth();
 
-  // ── Regular plan selection (email/password flow)
   const handleSelectPlan = (plan) => {
     if (plan.planKey === 'business' || plan.planKey === 'vip') {
-      // Paid plans → go to payment first, then create account
       navigate('/payment', { state: { plan } });
     } else {
-      // Standard (free) → go directly to create account
       navigate('/create-account', { state: { plan } });
     }
   };
-
 
   return (
     <div className="signup-page">
@@ -68,7 +62,6 @@ export default function SignUp() {
 
       <div className="signup-container">
 
-        {/* Logo */}
         <a href="/" className="signup-logo">
           <img src={logoImg} alt="Gym Rat" className="signup-logo-img" />
           <div>
@@ -77,7 +70,6 @@ export default function SignUp() {
           </div>
         </a>
 
-        {/* Header */}
         <div className="signup-header">
           <h1 className="signup-title">
             Unlock the best experience with our plans
@@ -87,7 +79,6 @@ export default function SignUp() {
           <p className="signup-subtitle">Select the plan that fits your fitness journey</p>
         </div>
 
-        {/* Plans Grid */}
         <div className="signup-plans">
           {plans.map((plan) => (
             <div
@@ -110,15 +101,12 @@ export default function SignUp() {
                   </li>
                 ))}
               </ul>
-
-              {/* Email/Password plan button */}
               <button
                 className={`plan-btn ${plan.popular ? 'plan-btn-popular' : ''}`}
                 onClick={() => handleSelectPlan(plan)}
               >
                 Select Plan
               </button>
-
             </div>
           ))}
         </div>
