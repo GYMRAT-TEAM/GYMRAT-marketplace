@@ -1,35 +1,51 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
-const UserSchema = new mongoose.Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { 
-    type: String, 
-    enum: ['Buyer', 'Seller', 'Admin'], 
-    default: 'Buyer' 
+const userSchema = new mongoose.Schema(
+  {
+    firstName: String,
+    lastName: String,
+    email: { type: String, unique: true },
+    password: String,
+
+    role: {
+      type: String,
+      enum: ["super_admin", "supplier", "buyer"],
+      default: "buyer",
+    },
+
+    status: {
+      type: String,
+      enum: ["active", "inactive", "suspended", "pending"],
+      default: "active",
+    },
+
+    plan: String,
+    businessName: String,
+    kycStatus: String,
+
+    // Profile details (for Settings page)
+    gender: { type: String, enum: ["Male", "Female", "Other"] },
+    address: String,
+    phone: String,
+    dateOfBirth: String,
+    location: String,
+    postalCode: String,
+    avatar: { type: String, default: null },
+
   },
-  plan: { 
-    type: String, 
-    enum: ['Free', 'VIP', 'Business'], 
-    default: 'Free' 
-  },
-  kycStatus: { 
-    type: String, 
-    enum: ['None', 'Pending', 'Verified', 'Rejected'], 
-    default: 'None' 
-  },
-  createdAt: { type: Date, default: Date.now }
+  { timestamps: true }
+);
+
+// 🔐 Hash password
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = bcrypt.hashSync(this.password, 10);
 });
 
-// Hash password before saving
-UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
+// 🔑 Compare password
+userSchema.methods.matchPassword = function (enteredPassword) {
+  return bcrypt.compareSync(enteredPassword, this.password);
+};
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.models.User || mongoose.model("User", userSchema);

@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm start --prefix frontend/gymrat-marketplace",
-    "server": "nodemon backend/server.js",
-    "dev": "concurrently \"npm start\" \"npm run server\"",
+    "start": "node backend/server.js",
+    "build": "npm run build --prefix frontend/gymrat-marketplace",
+    "dev": "concurrently \"npm start --prefix frontend/gymrat-marketplace\" \"node backend/server.js\"",
     "seed": "node backend/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +16,12 @@
   "type": "commonjs",
   "devDependencies": {
     "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "express-session": "^1.19.0",
+    "jsonwebtoken": "^9.0.3",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
   }
 }

@@ -1,45 +1,31 @@
-const express = require('express');
-const router = express.Router();
-const Order = require('../models/Order');
-const User = require('../models/User');
+const router = require('express').Router();
+const {
+  getDashboardStats,
+  getUsers, approveUser, suspendUser,
+  getProducts, approveProduct, rejectProduct, addProduct, deleteProduct,
+  getOrders,
+} = require('../controllers/adminController');
+const { protect, authorize, requirePremiumPlan } = require('../middleware/auth');
 
-// GET /api/admin/dashboard-stats
-router.get('/dashboard-stats', async (req, res) => {
-  try {
-    const orders = await Order.find().populate('product buyer seller');
-    const pendingKyc = await User.find({ kycStatus: 'Pending' });
+// Dashboard stats — public for now (no auth required)
+router.get('/dashboard-stats', getDashboardStats);
 
-    const totalSales = orders.reduce((sum, order) => sum + order.amount, 0);
-    const avgSales = orders.length > 0 ? (totalSales / orders.length) : 0;
-    
-    // Mocking some 'New' and 'Profit' metrics for the dashboard
-    const stats = {
-      grossSales: totalSales,
-      avgSales: avgSales,
-      newSalesCount: orders.filter(o => o.createdAt > new Date(Date.now() - 24*60*60*1000)).length,
-      grossProfits: totalSales * 0.15, // 15% commission mock
-      recentOrders: orders.slice(-4).reverse(),
-      kycQueue: pendingKyc.map(user => ({
-        id: user._id,
-        name: `${user.firstName} ${user.lastName}`,
-        role: user.role,
-        docs: 'ID + Selfie', // Mocking docs string
-        status: user.kycStatus,
-        color: '#e58e26'
-      })),
-      transactions: orders.slice(-3).reverse().map(o => ({
-        name: o.buyer.firstName,
-        product: o.product.title,
-        date: o.createdAt.toLocaleDateString(),
-        amount: o.amount,
-        status: o.status
-      }))
-    };
+// ── Product management — accessible by super_admin OR business/vip users ───────
+router.get('/products',             protect, authorize('super_admin'), getProducts);
+router.post('/products',            protect, requirePremiumPlan,       addProduct);
+router.put('/products/:id/approve', protect, authorize('super_admin'), approveProduct);
+router.put('/products/:id/reject',  protect, authorize('super_admin'), rejectProduct);
+router.delete('/products/:id',      protect, requirePremiumPlan,       deleteProduct);
 
-    res.json(stats);
-  } catch (err) {
-    res.status(500).json({ message: 'Error fetching stats', error: err.message });
-  }
-});
+// ── Super-admin only routes ─────────────────────────────────────────────────────
+router.use(protect, authorize('super_admin'));
+
+// User management
+router.get('/users',             getUsers);
+router.put('/users/:id/approve', approveUser);
+router.put('/users/:id/suspend', suspendUser);
+
+// Orders overview
+router.get('/orders', getOrders);
 
 module.exports = router;
