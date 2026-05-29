@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { sendWelcomeEmail, sendPaymentConfirmationEmail } = require('../utils/mailer');
 const User = require('../models/User');
 const Order = require('../models/Order');
 const logger = require('../utils/logger');
@@ -117,22 +118,14 @@ const register = async (req, res) => {
 
     const token = generateToken(user._id, user.role);
 
-    // Send emails based on plan
-    const { sendWelcomeEmail, sendPaymentConfirmationEmail } = require('../utils/mailer');
-
+    // Send emails
     console.log('[EMAIL] Sending welcome email to', email, '(name:', firstName + ')');
     sendWelcomeEmail(email, firstName);
-
-    // Only send payment confirmation for paid plans (Business / VIP)
-    if (plan === 'business' || plan === 'vip') {
-      const planLabels = { 'business': 'Business', 'vip': 'VIP' };
-      const planPrices = { 'business': 4990, 'vip': 9990 };
-      console.log('[EMAIL] Sending payment confirmation to', email, '- Plan:', planLabels[plan], '- Amount:', planPrices[plan]);
-      sendPaymentConfirmationEmail(email, firstName, planLabels[plan], planPrices[plan], paymentMethod);
-    } else {
-      console.log('[EMAIL] Standard plan - no payment email needed');
-    }
-
+    // Ensure payment email is sent for all plans (amount may be zero)
+    const planLabels = { 'business': 'Business', 'vip': 'VIP', 'standard': 'Standard' };
+    const planPrices = { 'business': 4990, 'vip': 9990, 'standard': 0 };
+    console.log('[EMAIL] Sending payment confirmation to', email, '- Plan:', planLabels[plan], '- Amount:', planPrices[plan]);
+    sendPaymentConfirmationEmail(email, firstName, planLabels[plan], planPrices[plan], paymentMethod);
     console.log('[SIGNUP] ---- Registration complete for', email, '----');
     return res.status(201).json({ token, user: safeUser(user) });
 
@@ -375,6 +368,13 @@ const upgradePlan = async (req, res) => {
         paymentMethod: paymentMethod === 'card' ? 'card' : 'baridi_mob',
         status: 'confirmed'
       });
+      // Send payment confirmation email for upgrades
+      try {
+        const { sendPaymentConfirmationEmail } = require('../utils/mailer');
+        sendPaymentConfirmationEmail(user.email, user.firstName, plan, amount, paymentMethod);
+      } catch (emailErr) {
+        logger.error(`Failed to send payment email on upgrade: ${emailErr.message}`);
+      }
     }
 
     logger.info(`Plan upgraded to ${normPlan} for: ${user.email}`);
