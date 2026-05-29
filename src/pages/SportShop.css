@@ -1,0 +1,72 @@
+.sport-shop-page { background: #060810; min-height: 100vh; }
+
+.sport-hero {
+  position: relative;
+  height: 340px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  padding-top: 70px; /* navbar offset */
+}
+
+.sport-hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.sport-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 40px 48px;
+  width: 100%;
+}
+
+.sport-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.sport-back-btn:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.4);
+  transform: translateX(-3px);
+}
+
+.sport-hero-emoji {
+  font-size: 40px;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+}
+
+.sport-hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.sport-hero-sub {
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+  margin: 0;
+  text-transform: capitalize;
+}

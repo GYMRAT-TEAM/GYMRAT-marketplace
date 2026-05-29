@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap');
+
+ :root {
+            --red-primary: #730c1e;
+            --red-dark: #210207;
+            --red-burgundy: #480415;
+            --navy-dark: #140f17;
+            --black: #0a0a0a;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #2a2a2a;
+            --gray-light: #e0e0e0;
+            --white: #ffffff;
+ }
+            
+
+
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: #060810;
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #060810; }
+::-webkit-scrollbar-thumb { background: #730c1e; }
+
+section { padding: 7rem 3rem; }
+
+.section-label {
+  font-family: 'Barlow Condensed'; font-size: 11px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--red);
+  margin-bottom: 0.8rem;
+}
+
+.section-title {
+  font-family: 'Bebas Neue'; font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 0.95; letter-spacing: 1px; color: #e0e0e0;
+}
+
+.section-title em { color: var(--red); font-style: normal; }
+
+.btn-primary {
+  background: var(--red); color: white; text-decoration: none;
+  padding: 14px 36px; font-family: 'Barlow Condensed'; font-weight: 700;
+  font-size: 14px; letter-spacing: 2px; text-transform: uppercase;
+  border-radius: 3px; transition: all .2s; display: inline-block;
+  border: 2px solid var(--red); cursor: pointer;
+}
+.btn-primary:hover { background: transparent; color: var(--red); }
+
+.btn-ghost {
+  border: 2px solid rgba(240,236,230,0.3); color: var(--light);
+  text-decoration: none; padding: 14px 36px;
+  font-family: 'Barlow Condensed'; font-weight: 700; font-size: 14px;
+  letter-spacing: 2px; text-transform: uppercase; border-radius: 3px;
+  transition: all .2s; display: inline-block; background: transparent; cursor: pointer;
+}
+.btn-ghost:hover { border-color: var(--light); background: rgba(240,236,230,0.05); }
+
+.btn-white {
+  background: white; color: var(--red); text-decoration: none;
+  padding: 10px 24px; font-family: 'Barlow Condensed'; font-weight: 700;
+  font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+  border-radius: 3px; display: inline-block; transition: all .2s; border: none; cursor: pointer;
+}
+.btn-white:hover { background: var(--light); }
