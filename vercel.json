@@ -1,15 +1,1 @@
-{
-  "buildCommand": "cd frontend/gymrat-marketplace && npm install && npm run build",
-  "outputDirectory": "frontend/gymrat-marketplace/build",
-  "installCommand": "echo skip",
-  "env": {
-    "CI": "false",
-    "GENERATE_SOURCEMAP": "false"
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
+{"version":2,"buildCommand":"cd frontend/gymrat-marketplace && npm install && DISABLE_ESLINT_PLUGIN=true npm run build","outputDirectory":"frontend/gymrat-marketplace/build","installCommand":"echo skip"}

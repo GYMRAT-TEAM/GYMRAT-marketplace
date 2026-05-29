@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './AdminProducts.css';
 
 const EMPTY_FORM = {
@@ -7,38 +7,40 @@ const EMPTY_FORM = {
 };
 
 const CATEGORIES = ['Supplements', 'Equipment', 'Clothing', 'Accessories', 'Footwear', 'General'];
-const SPORTS     = ['Gym', 'Football', 'Basketball', 'Swimming', 'Boxing', 'Cycling', 'Tennis', 'Volleyball', 'Pilates', 'General'];
+const SPORTS = ['Gym', 'Football', 'Basketball', 'Swimming', 'Boxing', 'Cycling', 'Tennis', 'Volleyball', 'Pilates', 'General'];
 
 export default function AdminProducts() {
-  const [products, setProducts]   = useState([]);
-  const [loading, setLoading]     = useState(true);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [form, setForm]           = useState(EMPTY_FORM);
-  const [saving, setSaving]       = useState(false);
-  const [error, setError]         = useState('');
-  const [search, setSearch]       = useState('');
-  const [deleting, setDeleting]   = useState(null);
+  const [form, setForm] = useState(EMPTY_FORM);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  const [search, setSearch] = useState('');
+  const [deleting, setDeleting] = useState(null);
 
   const token = localStorage.getItem('gymrat_token');
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch('http://localhost:5001/api/admin/products', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
+      const data = await res.json();
       if (res.ok) {
-        const data = await res.json();
-        setProducts(data.products || []);
+        setProducts(data);
       }
     } catch (err) {
-      console.error('Error fetching products:', err);
+      console.error('Fetch error:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
-  useEffect(() => { fetchProducts(); }, []);
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -49,9 +51,14 @@ export default function AdminProducts() {
     setError('');
     try {
       const res = await fetch('http://localhost:5001/api/admin/products', {
-        method:  'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ ...form, price: Number(form.price), oldPrice: form.oldPrice ? Number(form.oldPrice) : undefined, stock: Number(form.stock) || 0 }),
+        body: JSON.stringify({
+          ...form,
+          price: Number(form.price),
+          oldPrice: form.oldPrice ? Number(form.oldPrice) : undefined,
+          stock: Number(form.stock) || 0
+        }),
       });
       const data = await res.json();
       if (res.ok) {
@@ -91,7 +98,6 @@ export default function AdminProducts() {
   return (
     <div className="admin-products">
 
-      {/* Header row */}
       <div className="products-header-top">
         <div className="products-actions">
           <input
@@ -108,14 +114,15 @@ export default function AdminProducts() {
         </button>
       </div>
 
-      {/* Products table */}
       <div className="products-table-container">
         {loading ? (
           <div className="admin-loading">LOADING PRODUCTS...</div>
         ) : filtered.length === 0 ? (
           <div className="admin-empty">
             <p>No products found.</p>
-            <button className="btn-add-product" style={{ marginTop: 16 }} onClick={() => setShowModal(true)}>+ Add Your First Product</button>
+            <button className="btn-add-product" style={{ marginTop: 16 }} onClick={() => setShowModal(true)}>
+              + Add Your First Product
+            </button>
           </div>
         ) : (
           <table className="products-table">
@@ -132,11 +139,11 @@ export default function AdminProducts() {
             </thead>
             <tbody>
               {filtered.map((prod) => {
-                const displayName  = prod.name  || prod.title || 'Untitled';
-                const displayImg   = prod.img   || (prod.images && prod.images[0]) || (prod.photos && prod.photos[0]) || '';
+                const displayName = prod.name || prod.title || 'Untitled';
+                const displayImg = prod.img || (prod.images && prod.images[0]) || (prod.photos && prod.photos[0]) || '';
                 const displayPrice = prod.price !== undefined ? prod.price : 0;
                 const displayStock = prod.stock !== undefined ? prod.stock : 0;
-                const displayCat   = prod.type  || prod.category || '—';
+                const displayCat = prod.type || prod.category || '—';
                 const displaySport = prod.sport || '—';
                 const displayStatus = prod.status || 'approved';
 
@@ -145,7 +152,7 @@ export default function AdminProducts() {
                     <td>
                       <div className="product-info-cell">
                         {displayImg ? (
-                          <img src={displayImg} alt={displayName} className="product-thumb" onError={e => { e.target.style.display='none'; }} />
+                          <img src={displayImg} alt={displayName} className="product-thumb" onError={e => { e.target.style.display = 'none'; }} />
                         ) : (
                           <div className="product-thumb-placeholder">IMG</div>
                         )}
@@ -182,7 +189,6 @@ export default function AdminProducts() {
         )}
       </div>
 
-      {/* ── ADD PRODUCT MODAL ── */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-card" onClick={e => e.stopPropagation()}>
@@ -195,10 +201,9 @@ export default function AdminProducts() {
 
             <form onSubmit={handleSubmit} className="modal-form">
 
-              {/* Preview */}
               {form.img && (
                 <div className="modal-preview">
-                  <img src={form.img} alt="preview" onError={e => e.target.style.display='none'} />
+                  <img src={form.img} alt="preview" onError={e => { e.target.style.display = 'none'; }} />
                 </div>
               )}
 

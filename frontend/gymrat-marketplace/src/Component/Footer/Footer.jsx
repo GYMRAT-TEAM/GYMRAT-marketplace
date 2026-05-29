@@ -1,18 +1,15 @@
 import React from 'react';
 import './Footer.css';
-// Adjusted path: Go up one level to Component, then into Assets
-import logoImg from '../Assets/logo.png'; 
+import logoImg from '../Assets/logo.png';
 
 export default function Footer() {
   return (
     <footer>
       <div className="footer-grid">
         <div>
-          {/* REPLACED: Old GR logo divs replaced with your logo image */}
           <a href="#home" className="footer-logo-link">
             <img src={logoImg} alt="Gym Rat Logo" className="footer-main-logo" />
           </a>
-          
           <p className="footer-about-text">
             Your ultimate destination for premium fitness products, supplements, and gear. Built for athletes, by athletes. Transform your body, elevate your performance.
           </p>
@@ -50,7 +47,7 @@ export default function Footer() {
         <div className="footer-copy">© 2026 Gym Rat Marketplace. All rights reserved.</div>
         <div className="social-links">
           {['IG', 'TW', 'YT', 'TK'].map(s => (
-            <a href="#" className="social-link" key={s}>{s}</a>
+            <a href="/" className="social-link" key={s}>{s}</a>
           ))}
         </div>
       </div>
