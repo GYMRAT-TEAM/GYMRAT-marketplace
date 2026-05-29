@@ -453,3 +453,31 @@
 }
 .btn-submit:hover { background: #900f25; box-shadow: 0 4px 16px rgba(115,12,30,0.4); }
 .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (max-width: 900px) {
+  .products-header-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .products-actions {
+    flex-wrap: wrap;
+  }
+  .search-customer {
+    min-width: 100%;
+  }
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .modal-card {
+    padding: 20px 16px;
+  }
+  .modal-footer {
+    flex-direction: column-reverse;
+  }
+  .modal-footer button {
+    width: 100%;
+  }
+}

@@ -96,3 +96,14 @@
   background: #730c1e;
   box-shadow: 0 0 12px rgba(115,12,30,0.6);
 }
+
+@media (max-width: 1024px) {
+  .analytics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}

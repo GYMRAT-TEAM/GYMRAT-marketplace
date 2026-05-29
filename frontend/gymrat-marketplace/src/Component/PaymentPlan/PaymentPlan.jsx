@@ -15,6 +15,7 @@ export default function PaymentPlan() {
   // Step 1: 'select', Step 2: 'card-details'
   const [step, setStep] = useState('select');
   const [upgrading, setUpgrading] = useState(false);
+  const [method, setMethod] = useState('');
 
   const [form, setForm] = useState({
     cardNumber: '',
@@ -66,6 +67,7 @@ export default function PaymentPlan() {
   };
 
   const handleSelectMethod = (m) => {
+    setMethod(m);
     if (m === 'card') {
       setStep('card-details');
     } else {
@@ -85,6 +87,7 @@ export default function PaymentPlan() {
   const handleBack = () => {
     if (step === 'card-details') {
       setStep('select');
+      setMethod('');
     }
   };
 

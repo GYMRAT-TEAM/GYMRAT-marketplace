@@ -136,3 +136,17 @@
   color: rgba(255,255,255,0.75);
   margin-bottom: 1.2rem;
 }
+
+@media (max-width: 900px) {
+  .community-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .community-post {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}

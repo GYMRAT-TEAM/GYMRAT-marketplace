@@ -70,3 +70,17 @@
   margin: 0;
   text-transform: capitalize;
 }
+
+@media (max-width: 600px) {
+  .sport-hero {
+    height: 260px;
+  }
+  .sport-hero-content {
+    padding: 20px;
+  }
+  .sport-back-btn {
+    padding: 6px 12px;
+    font-size: 11px;
+    margin-bottom: 15px;
+  }
+}

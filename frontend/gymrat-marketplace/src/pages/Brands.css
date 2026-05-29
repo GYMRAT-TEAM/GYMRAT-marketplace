@@ -101,3 +101,19 @@
   text-decoration: none;
   display: block;
 }
+
+@media (max-width: 900px) {
+  .brands-featured {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  .brand-card-img {
+    height: 180px;
+  }
+}
+@media (max-width: 600px) {
+  .brands-featured {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
