@@ -66,7 +66,6 @@ export default function PaymentPlan() {
   };
 
   const handleSelectMethod = (m) => {
-    setMethod(m);
     if (m === 'card') {
       setStep('card-details');
     } else {
@@ -86,7 +85,6 @@ export default function PaymentPlan() {
   const handleBack = () => {
     if (step === 'card-details') {
       setStep('select');
-      setMethod('');
     }
   };
 
