@@ -1,7 +1,11 @@
 {
-  "buildCommand": "cd frontend/gymrat-marketplace && npm install && CI=false npm run build",
+  "buildCommand": "cd frontend/gymrat-marketplace && npm install && npm run build",
   "outputDirectory": "frontend/gymrat-marketplace/build",
   "installCommand": "echo skip",
+  "env": {
+    "CI": "false",
+    "GENERATE_SOURCEMAP": "false"
+  },
   "rewrites": [
     {
       "source": "/(.*)",
