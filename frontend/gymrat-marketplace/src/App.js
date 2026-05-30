@@ -22,6 +22,7 @@ import AdminLayout from './Component/AdminPanel/AdminLayout';
 import AdminDashboard from './Component/AdminPanel/AdminDashboard';
 import AdminProducts from './Component/AdminPanel/AdminProducts';
 import AdminTransactions from './Component/AdminPanel/AdminTransactions';
+import AdminUsers from './Component/AdminPanel/AdminUsers';
 import AdminPlaceholder from './Component/AdminPanel/AdminPlaceholder';
 
 // Pages
@@ -90,6 +91,8 @@ function App() {
                 <Route path="/admin" element={<AdminLayout />}>
                   <Route index element={<AdminDashboard />} />
                   <Route path="products" element={<AdminProducts />} />
+                  <Route path="users" element={<AdminUsers />} />
+                  <Route path="orders" element={<AdminTransactions />} />
                   <Route path="finance/transactions" element={<AdminTransactions />} />
                   <Route path="*" element={<AdminPlaceholder />} />
                 </Route>

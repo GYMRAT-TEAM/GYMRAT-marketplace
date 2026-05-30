@@ -1,6 +1,7 @@
 const Order   = require('../models/Order');
 const Product = require('../models/Product');
 const logger  = require('../utils/logger');
+const { sendOrderConfirmationEmail } = require('../utils/mailer');
 
 // ─── POST /api/orders ─────────────────────────────────────────────────────────
 // Buyer places a new order. Validates stock, snapshots prices, decrements stock.
@@ -52,6 +53,14 @@ const createOrder = async (req, res) => {
     });
 
     logger.info(`Order placed: ${order._id} by buyer ${req.user.email}`);
+
+    // Send email confirmation
+    try {
+      sendOrderConfirmationEmail(req.user.email, req.user.firstName, order);
+    } catch (emailErr) {
+      logger.error(`Failed to send order email: ${emailErr.message}`);
+    }
+
     return res.status(201).json({ message: 'Order placed successfully.', order });
   } catch (err) {
     logger.error(`createOrder error: ${err.message}`);
@@ -107,6 +116,14 @@ const createCartOrder = async (req, res) => {
     });
 
     console.log(`[ORDER] Cart order placed: ${order._id} by ${req.user.email} — ${orderItems.length} item(s) — DZD ${order.totalAmount}`);
+
+    // Send email confirmation
+    try {
+      sendOrderConfirmationEmail(req.user.email, req.user.firstName, order);
+    } catch (emailErr) {
+      logger.error(`Failed to send order email: ${emailErr.message}`);
+    }
+
     return res.status(201).json({ message: 'Order placed successfully.', order });
   } catch (err) {
     logger.error(`createCartOrder error: ${err.message}`);

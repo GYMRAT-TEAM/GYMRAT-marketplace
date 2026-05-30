@@ -24,12 +24,12 @@ export default function AdminProducts() {
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5001/api/admin/products', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001/api'}/admin/products`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
       if (res.ok) {
-        setProducts(data);
+        setProducts(data.products || data);
       }
     } catch (err) {
       console.error('Fetch error:', err);
@@ -50,7 +50,7 @@ export default function AdminProducts() {
     setSaving(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5001/api/admin/products', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001/api'}/admin/products`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({
@@ -79,7 +79,7 @@ export default function AdminProducts() {
     if (!window.confirm('Delete this product? This cannot be undone.')) return;
     setDeleting(id);
     try {
-      await fetch(`http://localhost:5001/api/admin/products/${id}`, {
+      await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001/api'}/admin/products/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

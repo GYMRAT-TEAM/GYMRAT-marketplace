@@ -14,7 +14,7 @@ export default function AdminDashboard() {
       }
 
       try {
-        const response = await fetch('http://localhost:5001/api/admin/dashboard-stats', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001/api'}/admin/dashboard-stats`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

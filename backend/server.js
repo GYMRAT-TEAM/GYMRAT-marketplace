@@ -25,8 +25,9 @@ app.use(helmet({
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
 const allowedOrigins = [
-  process.env.FRONTEND_URL || 'http://localhost:3000',
   'https://gymrat-marketplace.vercel.app',
+  process.env.FRONTEND_URL || 'http://localhost:3000',
+  'http://localhost:3000',
 ];
 
 app.use(
@@ -34,17 +35,19 @@ app.use(
     origin: (origin, callback) => {
       // Allow requests with no origin (like mobile apps, curl, postman)
       if (!origin) return callback(null, true);
-      
-      const isAllowed = allowedOrigins.includes(origin) || 
-                        origin.startsWith('http://localhost:') || 
-                        origin.startsWith('http://127.0.0.1:') ||
-                        /https?:\/\/([a-zA-Z0-9-]+--)?gymratmarketplace\.netlify\.app/.test(origin) ||
-                        /https?:\/\/([a-zA-Z0-9-]+--)?marketplacegymrat1\.netlify\.app/.test(origin);
-                        
+
+      const isAllowed =
+        allowedOrigins.includes(origin) ||
+        origin.startsWith('http://localhost:') ||
+        origin.startsWith('http://127.0.0.1:') ||
+        /https:\/\/gymrat-marketplace[a-zA-Z0-9-]*\.vercel\.app/.test(origin) ||
+        /https?:\/\/([a-zA-Z0-9-]+--)?gymratmarketplace\.netlify\.app/.test(origin);
+
       if (isAllowed) {
         callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'));
+        // Return null (no CORS header) instead of throwing — avoids 500 crashes
+        callback(null, false);
       }
     },
     credentials: true,

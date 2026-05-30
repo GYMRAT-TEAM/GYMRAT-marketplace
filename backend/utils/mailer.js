@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 const sendWelcomeEmail = async (email, firstName) => {
   try {
     const mailOptions = {
-      from: `"GymRat Marketplace" <${process.env.EMAIL_USER}>`,
+      from: `"GymRat Marketplace" <${cleanEmailUser}>`,
       to: email,
       subject: 'Welcome to GymRat World!',
       html: `
@@ -91,7 +91,7 @@ const sendPaymentConfirmationEmail = async (email, firstName, planName, amount, 
     const formattedAmount = (amount / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
 
     const mailOptions = {
-      from: `"GymRat Marketplace" <${process.env.EMAIL_USER}>`,
+      from: `"GymRat Marketplace" <${cleanEmailUser}>`,
       to: email,
       subject: `Payment Confirmed - GymRat ${planName} Plan`,
       html: `
@@ -183,7 +183,118 @@ const sendPaymentConfirmationEmail = async (email, firstName, planName, amount, 
   }
 };
 
+const sendOrderConfirmationEmail = async (email, firstName, order) => {
+  try {
+    const itemsHtml = order.items.map(item => `
+      <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+        <td style="padding: 12px 0; color: #1a1a1a; font-size: 15px;">${item.title || 'Product'}</td>
+        <td style="padding: 12px 0; color: #1a1a1a; font-size: 15px; text-align: center;">${item.quantity || 1}</td>
+        <td style="padding: 12px 0; color: #710c1e; font-size: 15px; text-align: right; font-weight: bold;">${(item.price || 0).toLocaleString()} DZD</td>
+      </tr>
+    `).join('');
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+    const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+    const ticketId = 'GR' + order._id.toString().slice(-8).toUpperCase();
+    const paymentMethodLabel = order.paymentMethod === 'card' ? 'Credit Card' : order.paymentMethod === 'baridi_mob' ? 'Baridi Mob' : order.paymentMethod.replace(/_/g, ' ').toUpperCase();
+
+    const mailOptions = {
+      from: `"GymRat Marketplace" <${cleanEmailUser}>`,
+      to: email,
+      subject: `Order Confirmed - ${ticketId}`,
+      html: `
+        <div style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; padding: 40px 20px; max-width: 600px; margin: 0 auto;">
+          <div style="background: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+            
+            <!-- HEADER -->
+            <div style="padding: 40px 40px 30px; text-align: center; background: linear-gradient(135deg, #9b1c1c 0%, #710c1e 100%); color: #ffffff;">
+              <div style="font-size: 40px; margin-bottom: 12px;">🎉</div>
+              <h1 style="margin: 0 0 6px; font-size: 26px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Order Confirmed!</h1>
+              <p style="margin: 0; font-size: 14px; opacity: 0.85;">
+                Thank you for shopping with GymRat Marketplace. Your order is being processed!
+              </p>
+            </div>
+
+            <!-- RECEIPT DETAILS -->
+            <div style="padding: 30px 40px;">
+              <table style="width: 100%; margin-bottom: 24px;" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="vertical-align: top;">
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #aaaaaa; font-weight: 600; margin-bottom: 4px;">ORDER ID</div>
+                    <div style="font-size: 16px; font-weight: 800; color: #1a1a1a; letter-spacing: 0.5px;">${ticketId}</div>
+                  </td>
+                  <td style="vertical-align: top; text-align: right;">
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #aaaaaa; font-weight: 600; margin-bottom: 4px;">TOTAL AMOUNT</div>
+                    <div style="font-size: 16px; font-weight: 800; color: #710c1e;">${(order.totalAmount || 0).toLocaleString()} DZD</div>
+                  </td>
+                </tr>
+              </table>
+
+              <table style="width: 100%; margin-bottom: 24px;" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="vertical-align: top;">
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #aaaaaa; font-weight: 600; margin-bottom: 4px;">DATE & TIME</div>
+                    <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">${dateStr} &bull; ${timeStr}</div>
+                  </td>
+                  <td style="vertical-align: top; text-align: right;">
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #aaaaaa; font-weight: 600; margin-bottom: 4px;">PAYMENT METHOD</div>
+                    <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">${paymentMethodLabel}</div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- ORDER ITEMS TABLE -->
+              <div style="margin-top: 30px; margin-bottom: 30px;">
+                <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: #aaaaaa; font-weight: 600; margin-bottom: 10px; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px;">ITEMS ORDERED</div>
+                <table style="width: 100%; border-collapse: collapse;">
+                  <thead>
+                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                      <th style="text-align: left; padding-bottom: 8px; color: #888888; font-size: 12px; font-weight: 600;">Product</th>
+                      <th style="text-align: center; padding-bottom: 8px; color: #888888; font-size: 12px; font-weight: 600;">Qty</th>
+                      <th style="text-align: right; padding-bottom: 8px; color: #888888; font-size: 12px; font-weight: 600;">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${itemsHtml}
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- SHIPPING ADDRESS -->
+              <div style="background: #f8f9fa; border-left: 4px solid #710c1e; border-radius: 4px; padding: 16px 20px; margin-bottom: 10px;">
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #710c1e; font-weight: bold; margin-bottom: 6px;">SHIPPING ADDRESS</div>
+                <div style="font-size: 14px; color: #2d3748; line-height: 1.5;">
+                  <strong>${order.shippingAddress?.firstName || firstName} ${order.shippingAddress?.lastName || ''}</strong><br/>
+                  ${order.shippingAddress?.street || order.shippingAddress?.address || 'N/A'}<br/>
+                  ${order.shippingAddress?.city || 'N/A'}, ${order.shippingAddress?.postalCode || ''}
+                </div>
+              </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div style="background: #fafafa; padding: 24px 40px; text-align: center; border-top: 1px solid #f0f0f0;">
+              <p style="margin: 0 0 4px; font-size: 12px; color: #bbbbbb;">
+                &copy; ${new Date().getFullYear()} GymRat Marketplace. All rights reserved.
+              </p>
+              <p style="margin: 0; font-size: 11px; color: #cccccc;">
+                Questions? Reply to this email or contact support@gymrat.com
+              </p>
+            </div>
+          </div>
+        </div>
+      `
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Order confirmation email sent: ' + info.response);
+  } catch (error) {
+    console.error('Error sending order confirmation email:', error);
+  }
+};
+
 module.exports = {
   sendWelcomeEmail,
-  sendPaymentConfirmationEmail
+  sendPaymentConfirmationEmail,
+  sendOrderConfirmationEmail
 };

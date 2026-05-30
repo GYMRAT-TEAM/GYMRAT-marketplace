@@ -172,7 +172,7 @@ function StepShipping({ address, onChange, onNext, onBack }) {
 }
 
 function StepPayment({ address, onNext, onBack }) {
-  const { total, shippingCost, subtotal } = useCart();
+  const { total, shippingCost, subtotal, cartItems } = useCart();
   const [card, setCard] = useState({ name: '', number: '', month: '', year: '', cvv: '' });
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState('');
@@ -184,11 +184,11 @@ function StepPayment({ address, onNext, onBack }) {
     setPayError('');
     try {
       const token = localStorage.getItem('gymrat_token');
-      const res = await fetch('http://localhost:5001/api/orders/cart', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001/api'}/orders/cart`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({
-          items: [],
+          items: cartItems,
           totalAmount: total,
           paymentMethod: 'card',
           shippingAddress: address,

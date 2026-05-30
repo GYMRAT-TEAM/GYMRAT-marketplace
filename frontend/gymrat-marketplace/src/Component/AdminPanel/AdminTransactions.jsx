@@ -9,7 +9,7 @@ export default function AdminTransactions() {
     const fetchOrders = async () => {
       const token = localStorage.getItem('gymrat_token');
       try {
-        const response = await fetch('http://localhost:5001/api/admin/orders', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5001/api'}/admin/orders`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
