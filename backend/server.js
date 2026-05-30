@@ -74,7 +74,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ─── Root Route ───────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
-  res.send('GymRat Marketplace API is running. Please access the frontend via Netlify.');
+  res.send('GymRat Marketplace API is running. Please access the frontend via Vercel.');
 });
 
 // ─── Global Error Handler ─────────────────────────────────────────────────────
